@@ -1,25 +1,22 @@
 ---
 const base = import.meta.env.BASE_URL;
 
-// 9 Lichtsysteme aus der eigenen Kollektion — abgebildet auf das Kollektion-Grid-Bild.
-// Reihenfolge entspricht dem 3×3-Layout im Bild (von oben links, zeilenweise).
 const systems = [
-  { name: 'Downlight', family: 'Punktlicht', description: 'Diskrete Deckenleuchten für gleichmäßige Grundausleuchtung — die ruhigste Form von Licht.' },
+  { name: 'Downlight', family: 'Punktlicht', description: 'Diskrete Deckenleuchten. Die Grundlage, ruhig und gleichmäßig.' },
   { name: 'Spotlight Narrow', family: 'Punktlicht', description: 'Eng gebündelter Strahler für gezielte Akzente. Kunst, Objekte, Architekturdetails.' },
-  { name: 'Spotlight Oval Beam', family: 'Punktlicht', description: 'Ovaler Lichtkegel — ideal für Bilder, Bänke, längliche Objekte ohne harte Kanten.' },
-  { name: 'Cove Light Indirect', family: 'Lineares Licht', description: 'Versteckt in Deckenkehlen — wirft Licht an die Decke zurück. Vergrößert den Raum.' },
+  { name: 'Spotlight Oval Beam', family: 'Punktlicht', description: 'Ovaler Lichtkegel für Bilder, Bänke, längliche Objekte ohne harte Kanten.' },
+  { name: 'Cove Light Indirect', family: 'Lineares Licht', description: 'Versteckt in Deckenkehlen. Wirft Licht an die Decke zurück und vergrößert den Raum.' },
   { name: 'Cove Light Direct', family: 'Lineares Licht', description: 'Linearer Direktstrahler von oben. Tageslicht-Wirkung über die gesamte Wand.' },
-  { name: 'Cove Light + Accent', family: 'Lineares Licht', description: 'Indirekte Basis kombiniert mit gezielten Akzenten — die Königsdisziplin.' },
+  { name: 'Cove Light + Accent', family: 'Lineares Licht', description: 'Indirekte Basis kombiniert mit gezielten Akzenten. Die Königsdisziplin.' },
   { name: 'Wallwash', family: 'Wandlicht', description: 'Gleichmäßiger Lichtvorhang über die gesamte Wandfläche. Hebt Architektur, nicht Möbel.' },
-  { name: 'Double Wallwash', family: 'Wandlicht', description: 'Beidseitige Wandbeleuchtung — Korridore und Durchgänge werden zur Inszenierung.' },
+  { name: 'Double Wallwash', family: 'Wandlicht', description: 'Beidseitige Wandbeleuchtung. Korridore und Durchgänge werden zur Inszenierung.' },
   { name: 'Uplight + Spot Oval', family: 'Wandlicht', description: 'Wandeinbau, der nach oben und unten strahlt. Atmosphärische Sockel-Beleuchtung.' },
 ];
 
-// Gruppen-Index für Sprung-Navigation
 const familyGroups = ['Punktlicht', 'Lineares Licht', 'Wandlicht'];
 ---
 
-<section class="lk-section lk-kollektion" id="kollektion" aria-labelledby="kollektion-title">
+<section class="lk-section--tight lk-kollektion" id="kollektion" aria-labelledby="kollektion-title">
   <div class="lk-container">
     <header class="lk-kollektion-header" data-reveal>
       <p class="lk-eyebrow">Eigene Kollektion</p>
@@ -27,16 +24,15 @@ const familyGroups = ['Punktlicht', 'Lineares Licht', 'Wandlicht'];
         Neun Lichtsysteme. <span class="lk-display-italic">Aus eigener Hand.</span>
       </h2>
       <p class="lk-body lk-kollektion-intro">
-        Wir greifen nicht in den Katalog. Wir entwerfen, fertigen und installieren unsere
-        eigenen Beleuchtungssysteme — abgestimmt auf das jeweilige Raumkonzept.
-        Drei Familien, neun Sprachen, eine Handschrift.
+        Wir kaufen nichts von der Stange. Jedes unserer Lichtsysteme entwerfen, bauen und
+        montieren wir selbst. Drei Familien, neun Sprachen, eine Handschrift.
       </p>
     </header>
 
     <div class="lk-kollektion-overview" data-reveal style="--reveal-delay: 180ms;">
       <img
         src={`${base}images/kollektion/kollektion-grid.jpg`}
-        alt="Übersicht der neun Lichtsysteme: Downlight, Spotlight Narrow, Spotlight Oval Beam, Cove Light Indirect, Cove Light Direct, Cove Light plus Accent, Wallwash, Double Wallwash, Uplight plus Spot Oval"
+        alt="Übersicht der neun Lichtsysteme. Downlight, Spotlight Narrow, Spotlight Oval Beam, Cove Light Indirect, Cove Light Direct, Cove Light plus Accent, Wallwash, Double Wallwash, Uplight plus Spot Oval"
         loading="lazy"
         decoding="async"
       />
@@ -61,9 +57,9 @@ const familyGroups = ['Punktlicht', 'Lineares Licht', 'Wandlicht'];
     </div>
 
     <p class="lk-kollektion-note lk-body-tight" data-reveal>
-      Alle Systeme können kombiniert, in Form, Lichttemperatur und Steuerung an Ihr Projekt
-      angepasst werden. Sonderanfertigungen auf Anfrage —
-      <a href="#kontakt" class="lk-link-quiet">im Lichtgespräch besprechen</a>.
+      Form, Lichttemperatur und Steuerung passen wir an Ihr Projekt an.
+      Sonderanfertigungen besprechen wir gern im
+      <a href="#kontakt" class="lk-link-quiet">Lichtgespräch</a>.
     </p>
   </div>
 </section>
@@ -82,11 +78,7 @@ const familyGroups = ['Punktlicht', 'Lineares Licht', 'Wandlicht'];
     right: -10%;
     width: 60vmin;
     height: 60vmin;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklch, var(--color-lk-accent) 10%, transparent) 0%,
-      transparent 60%
-    );
+    background: radial-gradient(circle, color-mix(in oklch, var(--color-lk-accent) 10%, transparent) 0%, transparent 60%);
     filter: blur(80px);
     pointer-events: none;
   }
@@ -97,11 +89,11 @@ const familyGroups = ['Punktlicht', 'Lineares Licht', 'Wandlicht'];
   }
 
   .lk-kollektion-intro {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 
   .lk-kollektion-overview {
-    margin-top: clamp(3rem, 6vw, 5rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
     border-radius: 4px;
     overflow: hidden;
     border: 1px solid var(--color-lk-line);
@@ -117,7 +109,7 @@ const familyGroups = ['Punktlicht', 'Lineares Licht', 'Wandlicht'];
   }
 
   .lk-kollektion-families {
-    margin-top: clamp(3rem, 5vw, 4rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(2rem, 4vw, 3.5rem);
@@ -131,8 +123,8 @@ const familyGroups = ['Punktlicht', 'Lineares Licht', 'Wandlicht'];
   .lk-family-label {
     color: var(--color-lk-accent);
     border-bottom: 1px solid var(--color-lk-line);
-    padding-bottom: 0.875rem;
-    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
   }
 
   .lk-family-list {
@@ -141,12 +133,12 @@ const familyGroups = ['Punktlicht', 'Lineares Licht', 'Wandlicht'];
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
 
   .lk-family-item {
     border-left: 1px solid var(--color-lk-line);
-    padding-left: 1.25rem;
+    padding-left: 1.1rem;
     transition: border-color 320ms var(--ease-fluid);
   }
   .lk-family-item:hover {
@@ -162,8 +154,8 @@ const familyGroups = ['Punktlicht', 'Lineares Licht', 'Wandlicht'];
   }
 
   .lk-kollektion-note {
-    margin-top: clamp(2.5rem, 4vw, 3.5rem);
-    padding-top: 2rem;
+    margin-top: clamp(2rem, 3vw, 2.5rem);
+    padding-top: 1.5rem;
     border-top: 1px solid var(--color-lk-line);
     max-width: 65ch;
     color: var(--color-lk-fg-muted);

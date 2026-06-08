@@ -28,7 +28,8 @@
 
   /* === Layout === */
   --gutter: clamp(1rem, 4vw, 3rem);
-  --section-gap: clamp(6rem, 12vh, 10rem);
+  --section-gap: clamp(3rem, 6vh, 5rem);
+  --section-gap-tight: clamp(2rem, 4vh, 3.5rem);
 }
 
 /* === Tageszeit-Layer: Abend (17–6 Uhr) === */
@@ -169,6 +170,11 @@
 
   .lk-section {
     padding-block: var(--section-gap);
+    padding-inline: var(--gutter);
+  }
+
+  .lk-section--tight {
+    padding-block: var(--section-gap-tight);
     padding-inline: var(--gutter);
   }
 

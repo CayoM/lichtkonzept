@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL;
 const stripBase = (p: string): string => p.replace(/^\//, '');
 ---
 
-<section class="lk-section lk-referenzen" id="referenzen" aria-labelledby="ref-title">
+<section class="lk-section--tight lk-referenzen" id="referenzen" aria-labelledby="ref-title">
   <div class="lk-container">
     <header class="lk-referenzen-header" data-reveal>
       <p class="lk-eyebrow">Referenzen</p>
@@ -17,8 +17,7 @@ const stripBase = (p: string): string => p.replace(/^\//, '');
         Räume, die wir <span class="lk-display-italic">zum Leben erweckt</span> haben.
       </h2>
       <p class="lk-body lk-referenzen-intro">
-        Eine Auswahl aktueller Studio-Projekte — gemeinsam mit Studio Konzept und Boden Konzept
-        realisiert.
+        Aktuelle Studio-Projekte, die wir mit Studio Konzept und Boden Konzept umgesetzt haben.
       </p>
     </header>
 
@@ -66,7 +65,7 @@ const stripBase = (p: string): string => p.replace(/^\//, '');
 
   .lk-referenzen-header {
     max-width: 720px;
-    margin-bottom: clamp(3rem, 6vw, 5rem);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
   }
 
   .lk-referenzen-intro {
@@ -79,7 +78,7 @@ const stripBase = (p: string): string => p.replace(/^\//, '');
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: clamp(4rem, 8vw, 7rem);
+    gap: clamp(2.5rem, 5vw, 4rem);
   }
 
   .lk-ref-item {

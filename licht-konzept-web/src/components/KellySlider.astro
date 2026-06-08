@@ -17,16 +17,16 @@ const steps = [
   {
     name: 'Schmucklicht',
     subtitle: 'Licht zum Ansehen',
-    body: 'Emotion. Das Auge bleibt hängen. Dekorative Leuchten werden selbst zur Skulptur — Licht als Schmuck.',
+    body: 'Emotion. Das Auge bleibt hängen. Dekorative Leuchten werden selbst zur Skulptur. Licht als Schmuck.',
     image: 'kelly-3-schmuck.svg',
   },
 ];
 ---
 
-<section class="lk-section lk-kelly" id="methodik" aria-labelledby="kelly-title">
+<section class="lk-section--tight lk-kelly" id="methodik" aria-labelledby="kelly-title">
   <div class="lk-container">
     <header class="lk-kelly-header" data-reveal>
-      <p class="lk-eyebrow">Methodik · Richard Kelly</p>
+      <p class="lk-eyebrow">Methodik. Richard Kelly.</p>
       <h2 id="kelly-title" class="lk-h1">
         So verstehen wir <span class="lk-display-italic">Licht.</span>
       </h2>
@@ -50,27 +50,21 @@ const steps = [
         ))}
         <div class="lk-kelly-vignette" aria-hidden="true"></div>
 
-        {/* Beschreibung oben rechts im Frame */}
-        <div class="lk-kelly-info" aria-live="polite">
-          {steps.map((step, i) => (
-            <div data-kelly-label={i} data-kelly-name={step.name} class="lk-kelly-info-card">
-              <div class="lk-kelly-info-meta">
-                <span class="lk-label">Schicht {String(i + 1).padStart(2, '0')}</span>
-                <span class="lk-kelly-info-sub lk-display-italic">{step.subtitle}</span>
-              </div>
-              <h3 class="lk-kelly-info-title">{step.name}</h3>
-              <p class="lk-kelly-info-body">{step.body}</p>
-            </div>
-          ))}
-        </div>
+        {/* Quote dezent oben mittig */}
+        <figure class="lk-kelly-quote-inset">
+          <blockquote>
+            <p class="lk-display-italic lk-kelly-quote-text">„Variety is the spice of light."</p>
+          </blockquote>
+          <figcaption class="lk-label">Richard Kelly, Lichtarchitekt</figcaption>
+        </figure>
 
-        {/* Drag-Handle on top of image */}
+        {/* Drag-Handle on image */}
         <div
           class="lk-kelly-handle"
           data-kelly-handle
           role="slider"
           tabindex="0"
-          aria-label="Lichtschicht auswählen — ziehen oder Pfeiltasten verwenden"
+          aria-label="Lichtschicht auswählen, ziehen oder Pfeiltasten verwenden"
           aria-valuemin="0"
           aria-valuemax="2"
           aria-valuenow="0"
@@ -85,22 +79,28 @@ const steps = [
           </div>
         </div>
 
-        {/* Drag-Hinweis — fadet nach erster Interaktion */}
+        {/* Drag-Hinweis bei Handle */}
         <div class="lk-kelly-hint" data-kelly-hint aria-hidden="true">
           <span class="lk-kelly-hint-arrow lk-kelly-hint-arrow--l">‹</span>
           <span class="lk-kelly-hint-text">ziehen</span>
           <span class="lk-kelly-hint-arrow lk-kelly-hint-arrow--r">›</span>
         </div>
 
-        {/* Quote unten zentriert im Frame */}
-        <figure class="lk-kelly-quote-inset">
-          <blockquote>
-            <p class="lk-display-italic lk-kelly-quote-text">„Variety is the spice of light."</p>
-          </blockquote>
-          <figcaption class="lk-label">— Richard Kelly, Lichtarchitekt (1910–1977)</figcaption>
-        </figure>
+        {/* Beschreibung am Frame-Boden */}
+        <div class="lk-kelly-info" aria-live="polite">
+          {steps.map((step, i) => (
+            <div data-kelly-label={i} data-kelly-name={step.name} class="lk-kelly-info-card">
+              <div class="lk-kelly-info-meta">
+                <span class="lk-label">Schicht {String(i + 1).padStart(2, '0')}</span>
+                <span class="lk-kelly-info-sub lk-display-italic">{step.subtitle}</span>
+              </div>
+              <h3 class="lk-kelly-info-title">{step.name}</h3>
+              <p class="lk-kelly-info-body">{step.body}</p>
+            </div>
+          ))}
+        </div>
 
-        {/* Position-Stops am Frame-Boden */}
+        {/* Position-Stops ganz unten am Frame-Rand */}
         <div class="lk-kelly-stops" aria-hidden="true">
           {steps.map((step, i) => (
             <button
@@ -135,15 +135,13 @@ const steps = [
   }
 
   .lk-kelly-intro {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
   }
 
   .lk-kelly-stage {
-    /* Eng an den Header — keine grosse Lücke */
-    margin-top: 2rem;
+    margin-top: 1.75rem;
   }
 
-  /* === Frame === */
   .lk-kelly-frame {
     position: relative;
     aspect-ratio: 16 / 9;
@@ -177,70 +175,38 @@ const steps = [
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse at center, transparent 50%, color-mix(in oklch, var(--color-lk-bg) 55%, transparent) 100%),
-      /* Subtile vignette oben rechts für besseren Info-Kontrast */
-      linear-gradient(225deg, color-mix(in oklch, var(--color-lk-bg) 50%, transparent), transparent 35%);
+      linear-gradient(180deg, color-mix(in oklch, var(--color-lk-bg) 30%, transparent) 0%, transparent 15%, transparent 55%, color-mix(in oklch, var(--color-lk-bg) 80%, transparent) 100%),
+      radial-gradient(ellipse at center, transparent 50%, color-mix(in oklch, var(--color-lk-bg) 40%, transparent) 100%);
   }
 
-  /* === Info-Card oben rechts === */
-  .lk-kelly-info {
+  /* Quote dezent oben */
+  .lk-kelly-quote-inset {
     position: absolute;
-    top: clamp(1.25rem, 2.5vw, 2rem);
-    right: clamp(1.25rem, 2.5vw, 2rem);
-    width: clamp(220px, 30%, 340px);
+    top: clamp(1rem, 2vw, 1.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    text-align: center;
     z-index: 2;
     pointer-events: none;
+    max-width: min(90%, 560px);
+    padding: 0 1rem;
   }
 
-  .lk-kelly-info-card {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transform: translateY(8px);
-    transition:
-      opacity 360ms var(--ease-cinema),
-      transform 360ms var(--ease-cinema);
-    text-align: right;
-  }
+  .lk-kelly-quote-inset blockquote { margin: 0; }
 
-  .lk-kelly-info-card[data-active='true'] {
-    opacity: 1;
-    transform: none;
-  }
-
-  .lk-kelly-info-meta {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid color-mix(in oklch, var(--color-lk-fg) 22%, transparent);
-    margin-bottom: 0.75rem;
-  }
-
-  .lk-kelly-info-meta .lk-label {
-    color: color-mix(in oklch, var(--color-lk-fg) 65%, transparent);
-  }
-
-  .lk-kelly-info-sub {
-    color: var(--color-lk-accent);
-    font-size: 0.9375rem;
-  }
-
-  .lk-kelly-info-title {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 2.5vw, 2.125rem);
-    line-height: 1.1;
-    color: var(--color-lk-fg);
-    letter-spacing: -0.015em;
+  .lk-kelly-quote-text {
+    font-size: clamp(0.875rem, 1.4vw, 1.125rem);
+    color: color-mix(in oklch, var(--color-lk-fg) 80%, transparent);
+    line-height: 1.3;
     margin: 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
   }
 
-  .lk-kelly-info-body {
-    font-family: var(--font-body);
-    font-size: 0.8125rem;
-    line-height: 1.55;
-    color: color-mix(in oklch, var(--color-lk-fg) 78%, transparent);
-    margin: 0.625rem 0 0;
+  .lk-kelly-quote-inset figcaption {
+    margin-top: 0.25rem;
+    font-size: 0.625rem;
+    color: color-mix(in oklch, var(--color-lk-fg) 55%, transparent);
   }
 
   /* === Drag Handle === */
@@ -265,9 +231,7 @@ const steps = [
     transition: none;
   }
 
-  .lk-kelly-handle:focus-visible {
-    outline: none;
-  }
+  .lk-kelly-handle:focus-visible { outline: none; }
   .lk-kelly-handle:focus-visible .lk-kelly-handle-grip {
     outline: 2px solid var(--color-lk-accent);
     outline-offset: 6px;
@@ -305,10 +269,7 @@ const steps = [
     box-shadow:
       0 0 0 4px color-mix(in oklch, var(--color-lk-accent) 15%, transparent),
       0 8px 24px rgba(0, 0, 0, 0.5);
-    transition:
-      transform 280ms var(--ease-fluid),
-      box-shadow 280ms var(--ease-fluid),
-      background 280ms var(--ease-fluid);
+    transition: transform 280ms var(--ease-fluid), box-shadow 280ms var(--ease-fluid), background 280ms var(--ease-fluid);
   }
 
   .lk-kelly-handle:hover .lk-kelly-handle-grip,
@@ -343,45 +304,88 @@ const steps = [
     opacity: 0;
   }
 
-  /* === Quote unten zentriert im Frame === */
-  .lk-kelly-quote-inset {
+  /* === Description am Frame-Boden === */
+  .lk-kelly-info {
     position: absolute;
-    bottom: clamp(3rem, 5vw, 4rem); /* über den Stop-Markers */
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    text-align: center;
-    z-index: 2;
-    pointer-events: none;
-    max-width: min(90%, 640px);
-    padding: 0 1rem;
-  }
-
-  .lk-kelly-quote-inset blockquote {
-    margin: 0;
-  }
-
-  .lk-kelly-quote-text {
-    font-size: clamp(1rem, 1.8vw, 1.375rem);
-    color: color-mix(in oklch, var(--color-lk-fg) 90%, transparent);
-    line-height: 1.3;
-    margin: 0;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-  }
-
-  .lk-kelly-quote-inset figcaption {
-    margin-top: 0.5rem;
-    font-size: 0.625rem;
-    color: color-mix(in oklch, var(--color-lk-fg) 60%, transparent);
-  }
-
-  /* === Position Stops (Mini-Dots am Frame-Boden) === */
-  .lk-kelly-stops {
-    position: absolute;
-    bottom: 14px;
     left: 0;
     right: 0;
-    height: 36px;
+    bottom: clamp(2.75rem, 4vw, 3.5rem); /* Platz für Stop-Markers darunter */
+    padding-inline: clamp(1.5rem, 3vw, 2.5rem);
+    z-index: 2;
+    pointer-events: none;
+    min-height: 110px;
+  }
+
+  .lk-kelly-info-card {
+    position: absolute;
+    inset: 0;
+    padding-inline: inherit;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 360ms var(--ease-cinema),
+      transform 360ms var(--ease-cinema);
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .lk-kelly-info-card[data-active='true'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .lk-kelly-info-meta {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.875rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in oklch, var(--color-lk-fg) 18%, transparent);
+    margin-bottom: 0.625rem;
+    width: fit-content;
+  }
+
+  .lk-kelly-info-meta .lk-label {
+    color: color-mix(in oklch, var(--color-lk-fg) 70%, transparent);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .lk-kelly-info-sub {
+    color: var(--color-lk-accent);
+    font-size: clamp(0.875rem, 1.1vw, 1rem);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .lk-kelly-info-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1;
+    color: var(--color-lk-fg);
+    letter-spacing: -0.015em;
+    margin: 0 0 0.4rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
+  }
+
+  .lk-kelly-info-body {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: color-mix(in oklch, var(--color-lk-fg) 88%, transparent);
+    margin: 0;
+    max-width: 64ch;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+  }
+
+  /* === Stops ganz unten === */
+  .lk-kelly-stops {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    height: 32px;
     pointer-events: none;
     z-index: 3;
   }
@@ -425,9 +429,7 @@ const steps = [
     box-shadow: 0 0 0 4px color-mix(in oklch, var(--color-lk-accent) 25%, transparent);
   }
 
-  .lk-kelly-stop:hover {
-    color: var(--color-lk-accent);
-  }
+  .lk-kelly-stop:hover { color: var(--color-lk-accent); }
 
   .lk-kelly-stop-num {
     font-family: var(--font-mono);
@@ -436,7 +438,7 @@ const steps = [
     opacity: 0.85;
   }
 
-  /* === Hint Text — schwebt um den Greifer === */
+  /* === Hint Text === */
   .lk-kelly-hint {
     position: absolute;
     top: 50%;
@@ -456,9 +458,7 @@ const steps = [
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   }
 
-  .lk-kelly-hint[data-faded='true'] {
-    opacity: 0;
-  }
+  .lk-kelly-hint[data-faded='true'] { opacity: 0; }
 
   .lk-kelly-hint-arrow {
     color: var(--color-lk-accent);
@@ -479,33 +479,10 @@ const steps = [
   }
 
   @media (max-width: 720px) {
-    .lk-kelly-frame {
-      aspect-ratio: 4 / 5; /* hochkant auf Mobile für mehr Frame-Höhe */
-    }
-    .lk-kelly-info {
-      width: calc(100% - 2.5rem);
-      top: 1rem;
-      right: 1rem;
-      left: 1rem;
-    }
-    .lk-kelly-info-card {
-      text-align: left;
-    }
-    .lk-kelly-info-meta {
-      justify-content: flex-start;
-    }
-    .lk-kelly-quote-inset {
-      bottom: 4rem;
-    }
-    .lk-kelly-quote-text {
-      font-size: 0.9375rem;
-    }
-    .lk-kelly-handle-grip {
-      width: 40px;
-      height: 40px;
-    }
-    .lk-kelly-hint {
-      transform: translate(-50%, calc(-50% + 36px));
-    }
+    .lk-kelly-frame { aspect-ratio: 3 / 4; }
+    .lk-kelly-info { padding-inline: 1.25rem; }
+    .lk-kelly-info-title { font-size: 1.625rem; }
+    .lk-kelly-handle-grip { width: 40px; height: 40px; }
+    .lk-kelly-hint { transform: translate(-50%, calc(-50% + 36px)); }
   }
 </style>

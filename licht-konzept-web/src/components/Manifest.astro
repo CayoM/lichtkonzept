@@ -1,16 +1,16 @@
 ---
 ---
 
-<section class="lk-section lk-manifest" id="manifest" aria-labelledby="manifest-title">
+<section class="lk-section--tight lk-manifest" id="manifest" aria-labelledby="manifest-title">
   <div class="lk-container lk-manifest-inner">
     <p class="lk-eyebrow" data-reveal>Manifest</p>
     <h2 id="manifest-title" class="lk-h1 lk-manifest-text" data-reveal style="--reveal-delay: 160ms;">
-      Wir entwickeln Lichtkonzepte für Räume,
-      <span class="lk-display-italic" style="color: var(--color-lk-accent);">die Atmosphäre verlangen.</span>
+      Wir bauen Licht für Räume,
+      <span class="lk-display-italic" style="color: var(--color-lk-accent);">die Atmosphäre brauchen.</span>
     </h2>
     <p class="lk-body lk-manifest-body" data-reveal style="--reveal-delay: 320ms;">
-      Fitnessstudios. Showrooms. Praxen. Premium-Wohnräume. Wir verstehen, wann Licht
-      Funktion sein muss, wann es Atmosphäre wird und wann es selbst zur Skulptur werden darf.
+      Fitnessstudios, Showrooms, Praxen, Wohnräume mit Anspruch. Wir entscheiden mit Ihnen,
+      wann Licht Funktion bleibt, wann es zur Atmosphäre wird und wann es sich selbst zeigen darf.
       Aus eigener Kollektion. Gemeinsam mit Studio Konzept und Boden Konzept.
     </p>
 
@@ -20,7 +20,7 @@
         <span class="lk-label">Eigene Lichtsysteme</span>
       </div>
       <div class="lk-stat">
-        <span class="lk-stat-num">Studio &nbsp;+ <br>Gewerbe</span>
+        <span class="lk-stat-num">Studio &amp; Gewerbe</span>
         <span class="lk-label">Spezialisierung</span>
       </div>
       <div class="lk-stat">
@@ -43,22 +43,22 @@
   }
 
   .lk-manifest-text {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 
   .lk-manifest-body {
     margin-inline: auto;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     text-align: center;
   }
 
   .lk-manifest-stats {
-    margin-top: clamp(3rem, 6vw, 5rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(1rem, 3vw, 3rem);
     border-top: 1px solid var(--color-lk-line);
-    padding-top: clamp(2rem, 4vw, 3rem);
+    padding-top: clamp(1.5rem, 3vw, 2.25rem);
   }
 
   .lk-stat {
@@ -80,7 +80,7 @@
   @media (max-width: 640px) {
     .lk-manifest-stats {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
   }
 </style>

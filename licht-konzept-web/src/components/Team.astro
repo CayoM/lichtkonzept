@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 const members = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<section class="lk-section lk-team" id="team" aria-labelledby="team-title">
+<section class="lk-section--tight lk-team" id="team" aria-labelledby="team-title">
   <div class="lk-container">
     <header class="lk-team-header" data-reveal>
       <p class="lk-eyebrow">Atelier</p>
@@ -42,7 +42,7 @@ const members = (await getCollection('team')).sort((a, b) => a.data.order - b.da
 
   .lk-team-header {
     max-width: 720px;
-    margin-bottom: clamp(3rem, 6vw, 5rem);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
   }
 
   .lk-team-intro {

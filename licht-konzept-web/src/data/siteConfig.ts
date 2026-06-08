@@ -1,9 +1,9 @@
 export const siteConfig = {
   brand: 'Licht Konzept',
   legal: 'Boden Konzept GmbH',
-  tagline: 'Wir machen aus Räumen Erlebnisse.',
+  tagline: 'We light up your vision.',
   description:
-    'Maßgeschneiderte Lichtkonzepte für anspruchsvolle Privat- und Gewerberäume. Beratung, Planung, Umsetzung — aus einer Hand.',
+    'Maßgeschneiderte Lichtkonzepte für Fitnessstudios, Gewerberäume und Premium-Privatkunden. Beratung, Planung, eigene Kollektion, Umsetzung — aus einer Hand.',
   contact: {
     phone: '07031 6130390',
     phoneIntl: '+49 7031 6130390',
@@ -23,12 +23,15 @@ export const siteConfig = {
     registerNumber: 'HRB 771137',
     ceo: 'Angelo Kunovic',
   },
+  social: {
+    instagram: 'https://www.instagram.com/licht_konzept/',
+  },
   nav: [
     { label: 'Manifest', href: '#manifest' },
     { label: 'Methodik', href: '#methodik' },
-    { label: 'Prozess', href: '#prozess' },
+    { label: 'Kollektion', href: '#kollektion' },
     { label: 'Referenzen', href: '#referenzen' },
-    { label: 'Team', href: '#team' },
+    { label: 'Prozess', href: '#prozess' },
     { label: 'Kontakt', href: '#kontakt' },
   ],
 } as const;

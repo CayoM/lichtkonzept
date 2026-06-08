@@ -1,20 +1,19 @@
 /**
  * Kelly-Slider — drei Lichtarten am gleichen Raumfoto.
- * Crossfade zwischen drei Bildvarianten, gesteuert über horizontalen Range-Slider.
- * A11y: ARIA-Slider mit Pfeil-Tasten-Steuerung; mobile Tap auf Step-Indikatoren.
+ * Drag-Handle ON-IMAGE: vertikale Linie mit Greifer-Punkt, die der Nutzer horizontal über
+ * das Frame zieht. Drei Snap-Positionen (Schicht 01/02/03) und smoother Crossfade dazwischen.
+ *
+ * Steuerung:
+ *   - Maus drag, Touch drag, Klick auf Position-Marker, Pfeil-Tasten (mit Handle im Fokus)
+ * A11y:
+ *   - ARIA slider role mit aria-valuenow / aria-valuetext / valuemin / valuemax
+ *   - Tastatur: ←/→ ±0.5 Schritt, Home/End auf Extreme
  */
-type StepConfig = {
-  layer: HTMLElement;
-  label: HTMLElement;
-};
 
 const easeOut = (t: number): number => 1 - Math.pow(1 - t, 3);
 
-/**
- * Berechnet die Opazitäten der drei Schichten basierend auf der aktuellen Slider-Position 0..2.
- * Zwischen den Stops sanfter Übergang, sonst klare Schicht aktiv.
- */
 const computeOpacities = (pos: number): [number, number, number] => {
+  // pos: 0..2 — 0 = Grundlicht voll, 1 = Akzent voll, 2 = Schmuck voll
   const o: [number, number, number] = [0, 0, 0];
   if (pos <= 1) {
     const t = easeOut(pos);
@@ -28,105 +27,136 @@ const computeOpacities = (pos: number): [number, number, number] => {
   return o;
 };
 
+const clamp = (v: number, min: number, max: number): number =>
+  Math.max(min, Math.min(max, v));
+
 export function initKellySlider(root: HTMLElement): void {
+  const frame = root.querySelector<HTMLElement>('[data-kelly-frame]');
   const layers = Array.from(root.querySelectorAll<HTMLElement>('[data-kelly-layer]'));
-  const labels = Array.from(root.querySelectorAll<HTMLElement>('[data-kelly-label]'));
-  const slider = root.querySelector<HTMLInputElement>('[data-kelly-input]');
+  const handle = root.querySelector<HTMLElement>('[data-kelly-handle]');
   const stops = Array.from(root.querySelectorAll<HTMLElement>('[data-kelly-stop]'));
-  const progress = root.querySelector<HTMLElement>('[data-kelly-progress]');
+  const labels = Array.from(root.querySelectorAll<HTMLElement>('[data-kelly-label]'));
+  const hint = root.querySelector<HTMLElement>('[data-kelly-hint]');
 
-  if (layers.length !== 3 || !slider) return;
+  if (!frame || !handle || layers.length !== 3) return;
 
-  const steps: StepConfig[] = layers.map((layer, i) => ({
-    layer,
-    label: labels[i] ?? labels[0]!,
-  }));
+  let current = 0; // 0..2
+  let dragging = false;
+  let interacted = false;
 
-  let current = Number(slider.value);
+  const setPosition = (pos: number, snap = false): void => {
+    const next = snap ? Math.round(pos) : pos;
+    current = clamp(next, 0, 2);
 
-  const render = (pos: number, animate = true): void => {
-    const [a, b, c] = computeOpacities(pos);
-    steps[0]!.layer.style.opacity = String(a);
-    steps[1]!.layer.style.opacity = String(b);
-    steps[2]!.layer.style.opacity = String(c);
+    // Frame CSS-Variable: 0..100 percent für Handle-Position
+    const pct = (current / 2) * 100;
+    frame.style.setProperty('--kelly-pos', `${pct}`);
 
-    // Active step bestimmen (closest)
-    const active = Math.round(pos);
-    labels.forEach((l, i) => {
-      const isActive = i === active;
-      l.dataset.active = isActive ? 'true' : 'false';
-    });
+    // Layer-Opazitäten
+    const [a, b, c] = computeOpacities(current);
+    layers[0]!.style.opacity = String(a);
+    layers[1]!.style.opacity = String(b);
+    layers[2]!.style.opacity = String(c);
+
+    // Active stop + label
+    const activeIdx = Math.round(current);
     stops.forEach((s, i) => {
-      s.dataset.active = i === active ? 'true' : 'false';
+      s.dataset.active = i === activeIdx ? 'true' : 'false';
+    });
+    labels.forEach((l, i) => {
+      l.dataset.active = i === activeIdx ? 'true' : 'false';
     });
 
-    if (progress) {
-      progress.style.transform = `scaleX(${pos / 2})`;
-    }
-
-    // ARIA value
-    slider.setAttribute('aria-valuenow', String(active));
-    slider.setAttribute(
-      'aria-valuetext',
-      labels[active]?.dataset.kellyName ?? `Stufe ${active + 1}`,
-    );
-
-    if (!animate) {
-      slider.value = String(pos);
-    }
+    // ARIA
+    handle.setAttribute('aria-valuenow', String(activeIdx));
+    const valueText = labels[activeIdx]?.dataset.kellyName ?? `Stufe ${activeIdx + 1}`;
+    handle.setAttribute('aria-valuetext', valueText);
   };
 
-  slider.addEventListener('input', () => {
-    current = Number(slider.value);
-    render(current);
+  const positionFromClientX = (clientX: number): number => {
+    const rect = frame.getBoundingClientRect();
+    const x = clamp(clientX - rect.left, 0, rect.width);
+    return (x / rect.width) * 2;
+  };
+
+  const markInteracted = (): void => {
+    if (interacted) return;
+    interacted = true;
+    if (hint) hint.dataset.faded = 'true';
+  };
+
+  // Drag handlers
+  const onPointerDown = (e: PointerEvent): void => {
+    e.preventDefault();
+    dragging = true;
+    markInteracted();
+    handle.setPointerCapture(e.pointerId);
+    handle.dataset.dragging = 'true';
+    setPosition(positionFromClientX(e.clientX));
+  };
+
+  const onPointerMove = (e: PointerEvent): void => {
+    if (!dragging) return;
+    setPosition(positionFromClientX(e.clientX));
+  };
+
+  const onPointerUp = (e: PointerEvent): void => {
+    if (!dragging) return;
+    dragging = false;
+    handle.releasePointerCapture(e.pointerId);
+    handle.dataset.dragging = 'false';
+    setPosition(current, true);
+  };
+
+  handle.addEventListener('pointerdown', onPointerDown);
+  handle.addEventListener('pointermove', onPointerMove);
+  handle.addEventListener('pointerup', onPointerUp);
+  handle.addEventListener('pointercancel', onPointerUp);
+
+  // Klick auf Frame außerhalb des Handle → setze Position
+  frame.addEventListener('click', (e: MouseEvent) => {
+    if (e.target === handle || handle.contains(e.target as Node)) return;
+    markInteracted();
+    setPosition(positionFromClientX(e.clientX), true);
   });
 
-  // Klick auf Step-Indikatoren snapped zu Wert
+  // Stop-Buttons (auch falls vorhanden)
   stops.forEach((stop, i) => {
-    stop.addEventListener('click', () => {
-      current = i;
-      slider.value = String(i);
-      render(i);
+    stop.addEventListener('click', (e) => {
+      e.stopPropagation();
+      markInteracted();
+      setPosition(i);
     });
   });
 
-  // Tastatur: Pfeile bewegen in Schritten
-  slider.addEventListener('keydown', (event) => {
+  // Tastatur
+  handle.tabIndex = 0;
+  handle.addEventListener('keydown', (e) => {
     let delta = 0;
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') delta = -1;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowUp') delta = 1;
-    if (event.key === 'Home') {
-      event.preventDefault();
-      current = 0;
-      slider.value = '0';
-      render(0);
+    let snap = true;
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') delta = -1;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') delta = 1;
+    if (e.key === 'Home') {
+      e.preventDefault();
+      markInteracted();
+      setPosition(0, true);
       return;
     }
-    if (event.key === 'End') {
-      event.preventDefault();
-      current = 2;
-      slider.value = '2';
-      render(2);
+    if (e.key === 'End') {
+      e.preventDefault();
+      markInteracted();
+      setPosition(2, true);
       return;
     }
     if (delta !== 0) {
-      event.preventDefault();
-      current = Math.max(0, Math.min(2, Math.round(current) + delta));
-      slider.value = String(current);
-      render(current);
+      e.preventDefault();
+      markInteracted();
+      setPosition(Math.round(current) + delta, snap);
     }
   });
 
   // Initial render
-  render(current, false);
-
-  // Reduzierte Bewegung: snappen zu nächstem Integer
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    slider.step = '1';
-    current = Math.round(current);
-    slider.value = String(current);
-    render(current);
-  }
+  setPosition(0, true);
 }
 
 export function initAllKellySliders(): void {

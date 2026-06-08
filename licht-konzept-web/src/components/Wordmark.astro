@@ -1,0 +1,58 @@
+---
+interface Props {
+  size?: number;
+  variant?: 'inline' | 'stacked';
+}
+const { size = 28, variant = 'inline' } = Astro.props;
+---
+
+<svg
+  class={`lk-wordmark-svg lk-wordmark--${variant}`}
+  width={size * 4.7}
+  height={size}
+  viewBox="0 0 280 60"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Licht Konzept"
+>
+  <!-- Linker Text "Licht" -->
+  <text
+    x="0"
+    y="42"
+    font-family="EB Garamond Variable, EB Garamond, Georgia, serif"
+    font-style="italic"
+    font-size="36"
+    font-weight="400"
+    fill="currentColor"
+    letter-spacing="-0.5"
+  >Licht</text>
+
+  <!-- X-Kreuz Trennzeichen -->
+  <g transform="translate(108,30)" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" fill="none">
+    <line x1="-8" y1="-8" x2="8" y2="8" />
+    <line x1="-8" y1="8" x2="8" y2="-8" />
+    <circle cx="0" cy="0" r="13" stroke-width="0.7" opacity="0.45" />
+  </g>
+
+  <!-- Rechter Text "Konzept" -->
+  <text
+    x="130"
+    y="42"
+    font-family="EB Garamond Variable, EB Garamond, Georgia, serif"
+    font-style="italic"
+    font-size="36"
+    font-weight="400"
+    fill="currentColor"
+    letter-spacing="-0.5"
+  >Konzept</text>
+</svg>
+
+<style>
+  .lk-wordmark-svg {
+    color: var(--color-lk-fg);
+    overflow: visible;
+  }
+  .lk-wordmark--stacked {
+    /* Reserved for future stacked variant */
+  }
+</style>

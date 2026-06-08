@@ -26,72 +26,86 @@ const steps = [
 <section class="lk-section lk-kelly" id="methodik" aria-labelledby="kelly-title">
   <div class="lk-container">
     <header class="lk-kelly-header" data-reveal>
-      <p class="lk-eyebrow">Methodik</p>
+      <p class="lk-eyebrow">Methodik · Richard Kelly</p>
       <h2 id="kelly-title" class="lk-h1">
         So verstehen wir <span class="lk-display-italic">Licht.</span>
       </h2>
       <p class="lk-body lk-kelly-intro">
-        Nach den drei Lichtarten von Richard Kelly arbeiten wir an jedem Projekt. Bewege den Schieberegler,
-        um zu sehen, wie sich derselbe Raum durch jede Schicht verändert.
+        Drei Schichten, die jeder Raum braucht. Bewege den Greifer im Frame nach links und
+        rechts, um zu sehen, wie sich derselbe Raum durch jede Schicht verändert.
       </p>
     </header>
 
     <div class="lk-kelly-stage" data-kelly-root data-reveal style="--reveal-delay: 200ms;">
-      <div class="lk-kelly-frame">
+      <div class="lk-kelly-frame" data-kelly-frame style="--kelly-pos: 0;">
         <img class="lk-kelly-base" src={`${base}images/placeholders/kelly-base.svg`} alt="" aria-hidden="true" />
         {steps.map((step, i) => (
           <img
             data-kelly-layer={i}
             class="lk-kelly-layer"
             src={`${base}images/placeholders/${step.image}`}
-            alt=""
-            aria-hidden="true"
+            alt={i === 0 ? 'Aktuell aktive Lichtschicht im Raum' : ''}
+            aria-hidden={i !== 0}
           />
         ))}
         <div class="lk-kelly-vignette" aria-hidden="true"></div>
-      </div>
 
-      <div class="lk-kelly-controls">
-        <div class="lk-kelly-track">
-          <div class="lk-kelly-track-line" aria-hidden="true"></div>
-          <div class="lk-kelly-track-progress" data-kelly-progress aria-hidden="true"></div>
+        {/* Drag-Handle on top of image */}
+        <div
+          class="lk-kelly-handle"
+          data-kelly-handle
+          role="slider"
+          tabindex="0"
+          aria-label="Lichtschicht auswählen — ziehen oder Pfeiltasten verwenden"
+          aria-valuemin="0"
+          aria-valuemax="2"
+          aria-valuenow="0"
+          aria-valuetext="Grundlicht"
+        >
+          <div class="lk-kelly-handle-line" aria-hidden="true"></div>
+          <div class="lk-kelly-handle-grip" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 4L3 8L6 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 4L13 8L10 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* Position markers (klickbar, snappen zu Position) */}
+        <div class="lk-kelly-stops" aria-hidden="true">
           {steps.map((step, i) => (
             <button
               type="button"
               data-kelly-stop={i}
               class="lk-kelly-stop"
-              aria-label={`Lichtschicht ${i + 1}: ${step.name}`}
+              aria-label={`Schicht ${i + 1}: ${step.name}`}
+              style={`--stop-pos: ${(i / 2) * 100}%`}
             >
-              <span class="lk-kelly-stop-dot" aria-hidden="true"></span>
-              <span class="lk-kelly-stop-num lk-label">{String(i + 1).padStart(2, '0')}</span>
+              <span class="lk-kelly-stop-num">{String(i + 1).padStart(2, '0')}</span>
             </button>
           ))}
-          <input
-            data-kelly-input
-            type="range"
-            min="0"
-            max="2"
-            step="0.01"
-            value="0"
-            class="lk-kelly-input"
-            aria-label="Lichtschicht auswählen"
-            aria-valuemin="0"
-            aria-valuemax="2"
-            aria-valuenow="0"
-            aria-valuetext="Grundlicht"
-          />
         </div>
 
-        <div class="lk-kelly-labels">
-          {steps.map((step, i) => (
-            <div data-kelly-label={i} data-kelly-name={step.name} class="lk-kelly-label">
-              <p class="lk-label lk-kelly-label-tag">Schicht {String(i + 1).padStart(2, '0')}</p>
-              <h3 class="lk-h2 lk-kelly-label-title">{step.name}</h3>
-              <p class="lk-kelly-label-sub lk-display-italic">{step.subtitle}</p>
-              <p class="lk-body lk-kelly-label-body">{step.body}</p>
-            </div>
-          ))}
+        {/* Drag-Hinweis — fadet nach erster Interaktion */}
+        <div class="lk-kelly-hint" data-kelly-hint aria-hidden="true">
+          <span class="lk-kelly-hint-arrow lk-kelly-hint-arrow--l">‹</span>
+          <span class="lk-kelly-hint-text">ziehen</span>
+          <span class="lk-kelly-hint-arrow lk-kelly-hint-arrow--r">›</span>
         </div>
+      </div>
+
+      {/* Beschreibungen direkt unter dem Frame */}
+      <div class="lk-kelly-descriptions">
+        {steps.map((step, i) => (
+          <div data-kelly-label={i} data-kelly-name={step.name} class="lk-kelly-desc">
+            <div class="lk-kelly-desc-meta">
+              <span class="lk-label">Schicht {String(i + 1).padStart(2, '0')}</span>
+              <span class="lk-kelly-desc-sub lk-display-italic">{step.subtitle}</span>
+            </div>
+            <h3 class="lk-h2 lk-kelly-desc-title">{step.name}</h3>
+            <p class="lk-body-tight lk-kelly-desc-body">{step.body}</p>
+          </div>
+        ))}
       </div>
 
       <figure class="lk-kelly-quote" data-reveal style="--reveal-delay: 360ms;">
@@ -129,6 +143,7 @@ const steps = [
     margin-top: clamp(3rem, 6vw, 5rem);
   }
 
+  /* === Frame === */
   .lk-kelly-frame {
     position: relative;
     aspect-ratio: 16 / 10;
@@ -136,6 +151,9 @@ const steps = [
     overflow: hidden;
     border: 1px solid var(--color-lk-line);
     background: var(--color-lk-bg-elev);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .lk-kelly-base,
@@ -145,11 +163,12 @@ const steps = [
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none;
   }
 
   .lk-kelly-layer {
     opacity: 0;
-    transition: opacity 360ms var(--ease-cinema);
+    transition: opacity 240ms var(--ease-cinema);
     will-change: opacity;
   }
 
@@ -159,155 +178,260 @@ const steps = [
     pointer-events: none;
     background: radial-gradient(
       ellipse at center,
-      transparent 60%,
-      color-mix(in oklch, var(--color-lk-bg) 60%, transparent) 100%
+      transparent 55%,
+      color-mix(in oklch, var(--color-lk-bg) 50%, transparent) 100%
     );
   }
 
-  .lk-kelly-controls {
-    margin-top: clamp(2rem, 4vw, 3rem);
-  }
-
-  .lk-kelly-track {
-    position: relative;
-    height: 56px;
+  /* === Drag Handle === */
+  .lk-kelly-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    /* CSS-Variable wird vom JS gesetzt: 0..100 */
+    left: calc(var(--kelly-pos) * 1%);
+    transform: translateX(-50%);
+    width: 56px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    cursor: grab;
+    touch-action: none;
+    z-index: 3;
+    transition: left 320ms var(--ease-cinema);
   }
 
-  .lk-kelly-track-line {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--color-lk-line);
+  .lk-kelly-handle[data-dragging='true'] {
+    cursor: grabbing;
+    transition: none;
   }
 
-  .lk-kelly-track-progress {
+  .lk-kelly-handle:focus-visible {
+    outline: none;
+  }
+  .lk-kelly-handle:focus-visible .lk-kelly-handle-grip {
+    outline: 2px solid var(--color-lk-accent);
+    outline-offset: 6px;
+  }
+
+  .lk-kelly-handle-line {
     position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in oklch, var(--color-lk-accent) 60%, transparent) 15%,
+      var(--color-lk-accent) 50%,
+      color-mix(in oklch, var(--color-lk-accent) 60%, transparent) 85%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  .lk-kelly-handle-grip {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-lk-bg);
+    border: 1px solid var(--color-lk-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-lk-accent);
+    box-shadow:
+      0 0 0 4px color-mix(in oklch, var(--color-lk-accent) 15%, transparent),
+      0 8px 24px rgba(0, 0, 0, 0.5);
+    transition:
+      transform 280ms var(--ease-fluid),
+      box-shadow 280ms var(--ease-fluid),
+      background 280ms var(--ease-fluid);
+  }
+
+  .lk-kelly-handle:hover .lk-kelly-handle-grip,
+  .lk-kelly-handle[data-dragging='true'] .lk-kelly-handle-grip {
     background: var(--color-lk-accent);
-    transform-origin: left center;
-    transform: scaleX(0);
-    transition: transform 240ms var(--ease-cinema);
+    color: var(--color-lk-bg);
+    transform: scale(1.08);
+    box-shadow:
+      0 0 0 8px color-mix(in oklch, var(--color-lk-accent) 20%, transparent),
+      0 12px 32px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Subtler pulse to draw attention before interaction */
+  .lk-kelly-handle-grip::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid var(--color-lk-accent);
+    opacity: 0.6;
+    animation: kelly-pulse 2.4s var(--ease-fluid) infinite;
+    pointer-events: none;
+  }
+
+  @keyframes kelly-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.25); opacity: 0; }
+  }
+
+  .lk-kelly-handle:hover .lk-kelly-handle-grip::before,
+  .lk-kelly-handle[data-dragging='true'] .lk-kelly-handle-grip::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  /* === Position Stops (Mini-Dots am Frame-Boden) === */
+  .lk-kelly-stops {
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    pointer-events: none;
+    z-index: 2;
   }
 
   .lk-kelly-stop {
     position: absolute;
+    bottom: 0;
+    left: var(--stop-pos, 50%);
+    transform: translateX(-50%);
+    width: 32px;
+    height: 32px;
+    padding: 0;
     background: transparent;
     border: none;
-    padding: 0;
     cursor: pointer;
+    pointer-events: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
-    color: var(--color-lk-fg-quiet);
+    justify-content: flex-end;
+    gap: 4px;
+    color: color-mix(in oklch, var(--color-lk-fg) 50%, transparent);
     transition: color 280ms var(--ease-fluid);
   }
 
-  .lk-kelly-stop:nth-of-type(1) {
-    left: 0;
-    transform: translateX(0);
-  }
-  .lk-kelly-stop:nth-of-type(2) {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .lk-kelly-stop:nth-of-type(3) {
-    right: 0;
-    transform: translateX(0);
-  }
-
-  .lk-kelly-stop-dot {
-    width: 14px;
-    height: 14px;
+  .lk-kelly-stop::after {
+    content: '';
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: var(--color-lk-bg);
-    border: 1px solid var(--color-lk-line);
-    transition:
-      background 280ms var(--ease-fluid),
-      border-color 280ms var(--ease-fluid),
-      transform 280ms var(--ease-fluid),
-      box-shadow 280ms var(--ease-fluid);
+    background: currentColor;
+    transition: transform 280ms var(--ease-fluid);
   }
 
   .lk-kelly-stop[data-active='true'] {
     color: var(--color-lk-accent);
   }
 
-  .lk-kelly-stop[data-active='true'] .lk-kelly-stop-dot {
-    background: var(--color-lk-accent);
-    border-color: var(--color-lk-accent);
-    transform: scale(1.4);
-    box-shadow: 0 0 0 6px color-mix(in oklch, var(--color-lk-accent) 18%, transparent);
+  .lk-kelly-stop[data-active='true']::after {
+    transform: scale(1.6);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--color-lk-accent) 25%, transparent);
+  }
+
+  .lk-kelly-stop:hover {
+    color: var(--color-lk-accent);
   }
 
   .lk-kelly-stop-num {
-    position: absolute;
-    top: calc(100% + 0.5rem);
+    font-family: var(--font-mono);
     font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    opacity: 0.85;
   }
 
-  .lk-kelly-input {
+  /* === Hint Text === */
+  .lk-kelly-hint {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 44px));
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: color-mix(in oklch, var(--color-lk-fg) 70%, transparent);
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 480ms var(--ease-fluid);
+  }
+
+  .lk-kelly-hint[data-faded='true'] {
     opacity: 0;
-    cursor: grab;
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
   }
 
-  .lk-kelly-input:active {
-    cursor: grabbing;
+  .lk-kelly-hint-arrow {
+    color: var(--color-lk-accent);
+    font-size: 1.25rem;
+    font-family: var(--font-display);
+    line-height: 1;
+  }
+  .lk-kelly-hint-arrow--l { animation: kelly-arrow-l 1.6s var(--ease-fluid) infinite; }
+  .lk-kelly-hint-arrow--r { animation: kelly-arrow-r 1.6s var(--ease-fluid) infinite; }
+
+  @keyframes kelly-arrow-l {
+    0%, 100% { transform: translateX(0); opacity: 0.4; }
+    50% { transform: translateX(-4px); opacity: 1; }
+  }
+  @keyframes kelly-arrow-r {
+    0%, 100% { transform: translateX(0); opacity: 0.4; }
+    50% { transform: translateX(4px); opacity: 1; }
   }
 
-  .lk-kelly-input:focus-visible + .lk-kelly-track-line {
-    outline: 2px solid var(--color-lk-accent);
-    outline-offset: 6px;
-  }
-
-  .lk-kelly-labels {
-    margin-top: 3.5rem;
+  /* === Descriptions — direkt unter dem Frame === */
+  .lk-kelly-descriptions {
+    margin-top: 1.75rem;
     position: relative;
-    min-height: 220px;
+    min-height: 180px;
   }
 
-  .lk-kelly-label {
+  .lk-kelly-desc {
     position: absolute;
     inset: 0;
-    max-width: 56ch;
+    max-width: 64ch;
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
     transition:
-      opacity 480ms var(--ease-cinema),
-      transform 480ms var(--ease-cinema);
+      opacity 360ms var(--ease-cinema),
+      transform 360ms var(--ease-cinema);
     pointer-events: none;
   }
 
-  .lk-kelly-label[data-active='true'] {
+  .lk-kelly-desc[data-active='true'] {
     opacity: 1;
     transform: none;
     pointer-events: auto;
   }
 
-  .lk-kelly-label-title {
-    margin-top: 0.5rem;
+  .lk-kelly-desc-meta {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: 1px solid var(--color-lk-line);
+    padding-bottom: 0.625rem;
+    margin-bottom: 1rem;
   }
 
-  .lk-kelly-label-sub {
+  .lk-kelly-desc-sub {
     color: var(--color-lk-accent);
     font-size: clamp(1rem, 1.2vw, 1.125rem);
-    margin-top: 0.25rem;
   }
 
-  .lk-kelly-label-body {
-    margin-top: 1rem;
+  .lk-kelly-desc-title {
+    margin-bottom: 0.875rem;
+  }
+
+  .lk-kelly-desc-body {
+    max-width: 56ch;
   }
 
   .lk-kelly-quote {
@@ -332,8 +456,15 @@ const steps = [
   }
 
   @media (max-width: 720px) {
-    .lk-kelly-labels {
-      min-height: 280px;
+    .lk-kelly-descriptions {
+      min-height: 240px;
+    }
+    .lk-kelly-handle-grip {
+      width: 44px;
+      height: 44px;
+    }
+    .lk-kelly-hint {
+      transform: translate(-50%, calc(-50% + 36px));
     }
   }
 </style>

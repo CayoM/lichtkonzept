@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '@data/siteConfig';
+import Wordmark from '@components/Wordmark.astro';
 const base = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
 ---
@@ -8,9 +9,10 @@ const year = new Date().getFullYear();
   <div class="lk-divider"></div>
   <div class="lk-footer-inner">
     <div class="lk-footer-brand">
-      <span class="lk-display-italic" style="font-size: 1.5rem;">{siteConfig.brand}</span>
-      <p class="lk-body-tight" style="margin-top: 0.5rem; max-width: 38ch;">
-        {siteConfig.address.street} · {siteConfig.address.zip} {siteConfig.address.city}
+      <Wordmark size={32} />
+      <p class="lk-body-tight" style="margin-top: 1rem; max-width: 38ch;">
+        {siteConfig.address.street} · {siteConfig.address.zip} {siteConfig.address.city}<br />
+        <a href={siteConfig.social.instagram} class="lk-link-quiet" rel="noopener noreferrer" target="_blank">@licht_konzept auf Instagram</a>
       </p>
     </div>
 

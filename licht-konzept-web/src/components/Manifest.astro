@@ -1,0 +1,90 @@
+---
+---
+
+<section class="lk-section lk-manifest" id="manifest" aria-labelledby="manifest-title">
+  <div class="lk-container lk-manifest-inner">
+    <p class="lk-eyebrow" data-reveal>Manifest</p>
+    <h2 id="manifest-title" class="lk-h1 lk-manifest-text" data-reveal style="--reveal-delay: 160ms;">
+      Wir entwickeln Lichtkonzepte für Räume,
+      <span class="lk-display-italic" style="color: var(--color-lk-accent);">die mehr sein wollen als hell.</span>
+    </h2>
+    <p class="lk-body lk-manifest-body" data-reveal style="--reveal-delay: 320ms;">
+      Im Dialog mit Architekten, Bauherren und Bewohnern suchen wir den Moment, in dem
+      Licht zur Atmosphäre wird — und Räume zu Erlebnissen. Drei Schichten. Eine Vision.
+      Jedes Projekt einzigartig.
+    </p>
+
+    <div class="lk-manifest-stats" data-reveal style="--reveal-delay: 480ms;">
+      <div class="lk-stat">
+        <span class="lk-stat-num">15+</span>
+        <span class="lk-label">Jahre Erfahrung</span>
+      </div>
+      <div class="lk-stat">
+        <span class="lk-stat-num">200+</span>
+        <span class="lk-label">Realisierte Konzepte</span>
+      </div>
+      <div class="lk-stat">
+        <span class="lk-stat-num">DACH</span>
+        <span class="lk-label">Bundesweit aktiv</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lk-manifest {
+    position: relative;
+    text-align: center;
+  }
+
+  .lk-manifest-inner {
+    max-width: 920px;
+    margin-inline: auto;
+  }
+
+  .lk-manifest-text {
+    margin-top: 1.5rem;
+  }
+
+  .lk-manifest-body {
+    margin-inline: auto;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .lk-manifest-stats {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 3vw, 3rem);
+    border-top: 1px solid var(--color-lk-line);
+    padding-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .lk-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .lk-stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1;
+    color: var(--color-lk-fg);
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 640px) {
+    .lk-manifest-stats {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .lk-manifest-stats .lk-stat {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+  }
+</style>

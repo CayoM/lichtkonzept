@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Gleicher Raum mit aktiviertem Schmucklicht — dekorative Leuchten als sichtbare Lichtskulpturen">
+  <defs>
+    <linearGradient id="k3-floor" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#0d0a07" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#050403" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="k3-wall" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#13100c" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#0a0807" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="k3-pendant" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff4d8" stop-opacity="0.95"/>
+      <stop offset="30%" stop-color="#f4d5a5" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="k3-stehlampe" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffe6b5" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="k3-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="680" fill="url(#k3-wall)"/>
+  <rect y="680" width="1600" height="320" fill="url(#k3-floor)"/>
+  <line x1="0" y1="680" x2="1600" y2="680" stroke="#2a1d12" stroke-width="1" opacity="0.5"/>
+
+  <!-- Möbel sehr dunkel, fast Silhouette -->
+  <rect x="500" y="540" width="600" height="140" rx="8" fill="#0a0807" opacity="0.98"/>
+  <rect x="500" y="600" width="60" height="80" rx="4" fill="#0a0807"/>
+  <rect x="1040" y="600" width="60" height="80" rx="4" fill="#0a0807"/>
+
+  <!-- Bilderrahmen kaum sichtbar -->
+  <rect x="180" y="180" width="180" height="240" stroke="#1a1410" stroke-width="2" fill="#0a0807"/>
+  <rect x="1240" y="220" width="240" height="180" stroke="#1a1410" stroke-width="2" fill="#0a0807"/>
+
+  <!-- Pendelleuchte LEUCHTET STARK -->
+  <line x1="800" y1="0" x2="800" y2="180" stroke="#1f1410" stroke-width="1"/>
+  <ellipse cx="800" cy="280" rx="220" ry="180" fill="url(#k3-pendant)"/>
+  <ellipse cx="800" cy="186" rx="30" ry="11" fill="#0a0807"/>
+  <ellipse cx="800" cy="192" rx="25" ry="8" fill="#ffe6b5"/>
+
+  <!-- Stehlampe rechts LEUCHTET -->
+  <line x1="1320" y1="240" x2="1320" y2="680" stroke="#2a1d12" stroke-width="2"/>
+  <ellipse cx="1320" cy="350" rx="160" ry="140" fill="url(#k3-stehlampe)"/>
+  <ellipse cx="1320" cy="240" rx="28" ry="11" fill="#5a3a1e"/>
+  <ellipse cx="1320" cy="246" rx="22" ry="6" fill="#ffe6b5"/>
+
+  <!-- Reflexionen auf Boden -->
+  <ellipse cx="800" cy="730" rx="160" ry="20" fill="#f4d5a5" opacity="0.15"/>
+  <ellipse cx="1320" cy="730" rx="120" ry="16" fill="#f4d5a5" opacity="0.12"/>
+
+  <rect width="1600" height="1000" filter="url(#k3-grain)" opacity="0.55"/>
+</svg>

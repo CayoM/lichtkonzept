@@ -1,0 +1,223 @@
+---
+import { siteConfig } from '@data/siteConfig';
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="lk-header">
+  <div class="lk-header-inner">
+    <a href={base} class="lk-wordmark" aria-label={`${siteConfig.brand} — Startseite`}>
+      <span class="lk-wordmark-art">Licht</span>
+      <span class="lk-wordmark-sep" aria-hidden="true">·</span>
+      <span class="lk-wordmark-art">Konzept</span>
+    </a>
+
+    <nav class="lk-nav" aria-label="Sektionen">
+      <ul>
+        {
+          siteConfig.nav.map((item) => (
+            <li>
+              <a href={item.href} class="lk-link-quiet">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a href={`tel:${siteConfig.contact.phoneIntl.replace(/\s/g, '')}`} class="lk-header-cta">
+      <span class="lk-header-cta-dot" aria-hidden="true"></span>
+      {siteConfig.contact.phone}
+    </a>
+
+    <button type="button" class="lk-nav-toggle" aria-label="Menü öffnen" aria-expanded="false" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+  const nav = document.querySelector<HTMLElement>('.lk-nav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    });
+    nav.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).tagName === 'A') {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Menü öffnen');
+      }
+    });
+  }
+</script>
+
+<style>
+  .lk-header {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: 100;
+    padding-inline: var(--gutter);
+    padding-block: 1.25rem;
+    background: linear-gradient(
+      180deg,
+      var(--color-lk-bg) 0%,
+      color-mix(in oklch, var(--color-lk-bg) 75%, transparent) 70%,
+      transparent 100%
+    );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .lk-header-inner {
+    max-width: 1440px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+  }
+
+  .lk-wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    letter-spacing: -0.01em;
+    color: var(--color-lk-fg);
+    line-height: 1;
+  }
+
+  .lk-wordmark-art {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .lk-wordmark-sep {
+    color: var(--color-lk-accent);
+    font-style: normal;
+    transform: translateY(-0.05em);
+  }
+
+  .lk-nav {
+    justify-self: center;
+  }
+
+  .lk-nav ul {
+    display: flex;
+    gap: clamp(1rem, 2vw, 2rem);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .lk-nav a {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
+  }
+
+  .lk-header-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.05em;
+    color: var(--color-lk-fg);
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--color-lk-line);
+    border-radius: 999px;
+    transition:
+      border-color 320ms var(--ease-fluid),
+      color 320ms var(--ease-fluid);
+  }
+
+  .lk-header-cta:hover {
+    border-color: var(--color-lk-accent);
+    color: var(--color-lk-accent);
+  }
+
+  .lk-header-cta-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-lk-accent);
+    box-shadow: 0 0 0 0 var(--color-lk-accent);
+    animation: lk-pulse 2.4s var(--ease-fluid) infinite;
+  }
+
+  @keyframes lk-pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in oklch, var(--color-lk-accent) 60%, transparent);
+    }
+    70% {
+      box-shadow: 0 0 0 8px color-mix(in oklch, var(--color-lk-accent) 0%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in oklch, var(--color-lk-accent) 0%, transparent);
+    }
+  }
+
+  .lk-nav-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--color-lk-line);
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lk-nav-toggle span {
+    display: block;
+    width: 18px;
+    height: 1px;
+    background: var(--color-lk-fg);
+    transition: transform 320ms var(--ease-fluid);
+  }
+
+  @media (max-width: 900px) {
+    .lk-nav {
+      position: fixed;
+      inset: 0;
+      background: var(--color-lk-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(-100%);
+      transition: transform 480ms var(--ease-fluid);
+      z-index: 50;
+    }
+    .lk-nav.is-open {
+      transform: translateY(0);
+    }
+    .lk-nav ul {
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .lk-nav a {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-style: italic;
+    }
+    .lk-nav-toggle {
+      display: flex;
+      z-index: 110;
+    }
+    .lk-header-cta {
+      display: none;
+    }
+  }
+</style>

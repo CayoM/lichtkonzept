@@ -1,0 +1,339 @@
+---
+const base = import.meta.env.BASE_URL;
+
+const steps = [
+  {
+    name: 'Grundlicht',
+    subtitle: 'Licht zum Sehen',
+    body: 'Orientierung. Das Auge findet seinen Weg. Eine weiche, gleichmäßige Lichtbasis macht den Raum bewohnbar.',
+    image: 'kelly-1-grund.svg',
+  },
+  {
+    name: 'Akzentlicht',
+    subtitle: 'Licht zum Hinsehen',
+    body: 'Aufmerksamkeit. Das Auge wird geführt. Gezielte Strahler heben Architektur, Kunst und Objekte hervor.',
+    image: 'kelly-2-akzent.svg',
+  },
+  {
+    name: 'Schmucklicht',
+    subtitle: 'Licht zum Ansehen',
+    body: 'Emotion. Das Auge bleibt hängen. Dekorative Leuchten werden selbst zur Skulptur — Licht als Schmuck.',
+    image: 'kelly-3-schmuck.svg',
+  },
+];
+---
+
+<section class="lk-section lk-kelly" id="methodik" aria-labelledby="kelly-title">
+  <div class="lk-container">
+    <header class="lk-kelly-header" data-reveal>
+      <p class="lk-eyebrow">Methodik</p>
+      <h2 id="kelly-title" class="lk-h1">
+        So verstehen wir <span class="lk-display-italic">Licht.</span>
+      </h2>
+      <p class="lk-body lk-kelly-intro">
+        Nach den drei Lichtarten von Richard Kelly arbeiten wir an jedem Projekt. Bewege den Schieberegler,
+        um zu sehen, wie sich derselbe Raum durch jede Schicht verändert.
+      </p>
+    </header>
+
+    <div class="lk-kelly-stage" data-kelly-root data-reveal style="--reveal-delay: 200ms;">
+      <div class="lk-kelly-frame">
+        <img class="lk-kelly-base" src={`${base}images/placeholders/kelly-base.svg`} alt="" aria-hidden="true" />
+        {steps.map((step, i) => (
+          <img
+            data-kelly-layer={i}
+            class="lk-kelly-layer"
+            src={`${base}images/placeholders/${step.image}`}
+            alt=""
+            aria-hidden="true"
+          />
+        ))}
+        <div class="lk-kelly-vignette" aria-hidden="true"></div>
+      </div>
+
+      <div class="lk-kelly-controls">
+        <div class="lk-kelly-track">
+          <div class="lk-kelly-track-line" aria-hidden="true"></div>
+          <div class="lk-kelly-track-progress" data-kelly-progress aria-hidden="true"></div>
+          {steps.map((step, i) => (
+            <button
+              type="button"
+              data-kelly-stop={i}
+              class="lk-kelly-stop"
+              aria-label={`Lichtschicht ${i + 1}: ${step.name}`}
+            >
+              <span class="lk-kelly-stop-dot" aria-hidden="true"></span>
+              <span class="lk-kelly-stop-num lk-label">{String(i + 1).padStart(2, '0')}</span>
+            </button>
+          ))}
+          <input
+            data-kelly-input
+            type="range"
+            min="0"
+            max="2"
+            step="0.01"
+            value="0"
+            class="lk-kelly-input"
+            aria-label="Lichtschicht auswählen"
+            aria-valuemin="0"
+            aria-valuemax="2"
+            aria-valuenow="0"
+            aria-valuetext="Grundlicht"
+          />
+        </div>
+
+        <div class="lk-kelly-labels">
+          {steps.map((step, i) => (
+            <div data-kelly-label={i} data-kelly-name={step.name} class="lk-kelly-label">
+              <p class="lk-label lk-kelly-label-tag">Schicht {String(i + 1).padStart(2, '0')}</p>
+              <h3 class="lk-h2 lk-kelly-label-title">{step.name}</h3>
+              <p class="lk-kelly-label-sub lk-display-italic">{step.subtitle}</p>
+              <p class="lk-body lk-kelly-label-body">{step.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <figure class="lk-kelly-quote" data-reveal style="--reveal-delay: 360ms;">
+        <blockquote>
+          <p class="lk-display-italic lk-kelly-quote-text">
+            „Variety is the spice of light."
+          </p>
+        </blockquote>
+        <figcaption class="lk-label">— Richard Kelly, Lichtarchitekt (1910–1977)</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '@lib/kelly-slider';
+</script>
+
+<style>
+  .lk-kelly {
+    background: linear-gradient(180deg, var(--color-lk-bg) 0%, var(--color-lk-bg-elev) 50%, var(--color-lk-bg) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lk-kelly-header {
+    max-width: 720px;
+  }
+
+  .lk-kelly-intro {
+    margin-top: 1.5rem;
+  }
+
+  .lk-kelly-stage {
+    margin-top: clamp(3rem, 6vw, 5rem);
+  }
+
+  .lk-kelly-frame {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--color-lk-line);
+    background: var(--color-lk-bg-elev);
+  }
+
+  .lk-kelly-base,
+  .lk-kelly-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lk-kelly-layer {
+    opacity: 0;
+    transition: opacity 360ms var(--ease-cinema);
+    will-change: opacity;
+  }
+
+  .lk-kelly-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 60%,
+      color-mix(in oklch, var(--color-lk-bg) 60%, transparent) 100%
+    );
+  }
+
+  .lk-kelly-controls {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .lk-kelly-track {
+    position: relative;
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
+
+  .lk-kelly-track-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-lk-line);
+  }
+
+  .lk-kelly-track-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-lk-accent);
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 240ms var(--ease-cinema);
+  }
+
+  .lk-kelly-stop {
+    position: absolute;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-lk-fg-quiet);
+    transition: color 280ms var(--ease-fluid);
+  }
+
+  .lk-kelly-stop:nth-of-type(1) {
+    left: 0;
+    transform: translateX(0);
+  }
+  .lk-kelly-stop:nth-of-type(2) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .lk-kelly-stop:nth-of-type(3) {
+    right: 0;
+    transform: translateX(0);
+  }
+
+  .lk-kelly-stop-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-lk-bg);
+    border: 1px solid var(--color-lk-line);
+    transition:
+      background 280ms var(--ease-fluid),
+      border-color 280ms var(--ease-fluid),
+      transform 280ms var(--ease-fluid),
+      box-shadow 280ms var(--ease-fluid);
+  }
+
+  .lk-kelly-stop[data-active='true'] {
+    color: var(--color-lk-accent);
+  }
+
+  .lk-kelly-stop[data-active='true'] .lk-kelly-stop-dot {
+    background: var(--color-lk-accent);
+    border-color: var(--color-lk-accent);
+    transform: scale(1.4);
+    box-shadow: 0 0 0 6px color-mix(in oklch, var(--color-lk-accent) 18%, transparent);
+  }
+
+  .lk-kelly-stop-num {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    font-size: 0.625rem;
+  }
+
+  .lk-kelly-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: grab;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+
+  .lk-kelly-input:active {
+    cursor: grabbing;
+  }
+
+  .lk-kelly-input:focus-visible + .lk-kelly-track-line {
+    outline: 2px solid var(--color-lk-accent);
+    outline-offset: 6px;
+  }
+
+  .lk-kelly-labels {
+    margin-top: 3.5rem;
+    position: relative;
+    min-height: 220px;
+  }
+
+  .lk-kelly-label {
+    position: absolute;
+    inset: 0;
+    max-width: 56ch;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 480ms var(--ease-cinema),
+      transform 480ms var(--ease-cinema);
+    pointer-events: none;
+  }
+
+  .lk-kelly-label[data-active='true'] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .lk-kelly-label-title {
+    margin-top: 0.5rem;
+  }
+
+  .lk-kelly-label-sub {
+    color: var(--color-lk-accent);
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    margin-top: 0.25rem;
+  }
+
+  .lk-kelly-label-body {
+    margin-top: 1rem;
+  }
+
+  .lk-kelly-quote {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    text-align: center;
+    border-top: 1px solid var(--color-lk-line);
+    padding-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .lk-kelly-quote blockquote {
+    margin: 0;
+  }
+
+  .lk-kelly-quote-text {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--color-lk-fg);
+    line-height: 1.2;
+  }
+
+  .lk-kelly-quote figcaption {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 720px) {
+    .lk-kelly-labels {
+      min-height: 280px;
+    }
+  }
+</style>

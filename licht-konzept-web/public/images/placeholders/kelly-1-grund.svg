@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Gleicher Raum mit aktiviertem Grundlicht — gleichmäßige weiche Ausleuchtung">
+  <defs>
+    <linearGradient id="k1-floor" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#28201a" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1d1612" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="k1-wall" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#3a2e24" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#241c15" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="k1-ambient" cx="50%" cy="60%" r="80%">
+      <stop offset="0%" stop-color="#e8c89a" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="k1-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="680" fill="url(#k1-wall)"/>
+  <rect y="680" width="1600" height="320" fill="url(#k1-floor)"/>
+  <rect width="1600" height="1000" fill="url(#k1-ambient)"/>
+  <line x1="0" y1="680" x2="1600" y2="680" stroke="#3a2818" stroke-width="1" opacity="0.6"/>
+
+  <!-- Möbel-Silhouetten heller -->
+  <rect x="500" y="540" width="600" height="140" rx="8" fill="#1d1812" opacity="0.95"/>
+  <rect x="500" y="540" width="600" height="40" rx="8" fill="#2a2218" opacity="0.95"/>
+  <rect x="500" y="600" width="60" height="80" rx="4" fill="#2a2218"/>
+  <rect x="1040" y="600" width="60" height="80" rx="4" fill="#2a2218"/>
+
+  <rect x="180" y="180" width="180" height="240" stroke="#3a2e1f" stroke-width="2" fill="#1a140e"/>
+  <rect x="1240" y="220" width="240" height="180" stroke="#3a2e1f" stroke-width="2" fill="#1a140e"/>
+
+  <line x1="1320" y1="240" x2="1320" y2="680" stroke="#3a2e1f" stroke-width="2"/>
+  <ellipse cx="1320" cy="240" rx="26" ry="10" fill="#3a2818"/>
+
+  <line x1="800" y1="0" x2="800" y2="180" stroke="#3a2e1f" stroke-width="1"/>
+  <ellipse cx="800" cy="186" rx="28" ry="10" fill="#3a2818"/>
+
+  <rect x="380" y="600" width="80" height="80" fill="#26201a"/>
+  <ellipse cx="420" cy="600" rx="14" ry="5" fill="#3a2e1f"/>
+  <path d="M408,600 Q408,560 420,540 Q432,560 432,600 Z" fill="#3a2e1f"/>
+
+  <!-- Sehr breite weiche Lichtverteilung von oben -->
+  <ellipse cx="800" cy="-200" rx="1200" ry="700" fill="#f4d5a5" opacity="0.12"/>
+
+  <rect width="1600" height="1000" filter="url(#k1-grain)" opacity="0.65"/>
+</svg>

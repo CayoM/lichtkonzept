@@ -1,0 +1,288 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/eb-garamond/wght-italic.css';
+@import '@fontsource-variable/eb-garamond';
+@import '@fontsource-variable/inter-tight';
+@import '@fontsource-variable/jetbrains-mono';
+
+@theme {
+  /* === Fonts === */
+  --font-display: 'EB Garamond Variable', 'EB Garamond', Georgia, serif;
+  --font-body: 'Inter Tight Variable', 'Inter Tight', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+
+  /* === Color Tokens (default = day) === */
+  --color-lk-bg: oklch(8% 0.003 60);
+  --color-lk-bg-elev: oklch(12% 0.005 60);
+  --color-lk-fg: oklch(96% 0.01 80);
+  --color-lk-fg-muted: oklch(70% 0.01 80);
+  --color-lk-fg-quiet: oklch(50% 0.01 80);
+  --color-lk-accent: oklch(78% 0.12 75);
+  --color-lk-accent-soft: oklch(78% 0.12 75 / 25%);
+  --color-lk-line: oklch(20% 0.005 60);
+  --color-lk-line-quiet: oklch(15% 0.005 60);
+
+  /* === Easings === */
+  --ease-fluid: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-cinema: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-deliberate: cubic-bezier(0.7, 0, 0.3, 1);
+
+  /* === Layout === */
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --section-gap: clamp(6rem, 12vh, 10rem);
+}
+
+/* === Tageszeit-Layer: Abend (17–6 Uhr) === */
+[data-daypart='evening'] {
+  --color-lk-bg: oklch(6% 0.003 50);
+  --color-lk-bg-elev: oklch(10% 0.005 50);
+  --color-lk-fg: oklch(94% 0.015 75);
+  --color-lk-fg-muted: oklch(68% 0.015 75);
+  --color-lk-accent: oklch(74% 0.15 65);
+  --color-lk-accent-soft: oklch(74% 0.15 65 / 30%);
+  --color-lk-line: oklch(18% 0.005 50);
+}
+
+@layer base {
+  html {
+    background: var(--color-lk-bg);
+    color: var(--color-lk-fg);
+    font-family: var(--font-body);
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    color-scheme: dark;
+    transition:
+      background 1200ms var(--ease-fluid),
+      color 1200ms var(--ease-fluid);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    line-height: 1.55;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-lk-accent);
+    color: var(--color-lk-bg);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-lk-accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: var(--color-lk-line);
+    margin: 0;
+  }
+}
+
+@layer components {
+  .lk-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3rem, 8vw, 8rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+  }
+
+  .lk-display-italic {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .lk-h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 4vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+
+  .lk-h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .lk-h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
+
+  .lk-body {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
+    line-height: 1.65;
+    color: var(--color-lk-fg-muted);
+    max-width: 65ch;
+  }
+
+  .lk-body-tight {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-lk-fg-muted);
+  }
+
+  .lk-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-lk-fg-quiet);
+  }
+
+  .lk-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-lk-accent);
+  }
+
+  .lk-section {
+    padding-block: var(--section-gap);
+    padding-inline: var(--gutter);
+  }
+
+  .lk-container {
+    max-width: 1440px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .lk-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-lk-line) 20%,
+      var(--color-lk-line) 80%,
+      transparent
+    );
+  }
+
+  /* Subtile Glühschicht (Tageszeit reagiert) */
+  .lk-glow {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      var(--color-lk-accent-soft) 0%,
+      transparent 60%
+    );
+    filter: blur(40px);
+    opacity: 0.6;
+    transition: opacity 1200ms var(--ease-fluid);
+  }
+
+  /* CTA-Pille */
+  .lk-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.875rem 1.75rem;
+    border: 1px solid var(--color-lk-accent);
+    color: var(--color-lk-accent);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    border-radius: 999px;
+    transition:
+      background 400ms var(--ease-fluid),
+      color 400ms var(--ease-fluid),
+      transform 400ms var(--ease-fluid);
+  }
+
+  .lk-cta:hover {
+    background: var(--color-lk-accent);
+    color: var(--color-lk-bg);
+    transform: translateY(-1px);
+  }
+
+  .lk-cta:active {
+    transform: translateY(0);
+  }
+
+  .lk-link-quiet {
+    color: var(--color-lk-fg-muted);
+    position: relative;
+    transition: color 240ms var(--ease-fluid);
+  }
+  .lk-link-quiet::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 360ms var(--ease-fluid);
+  }
+  .lk-link-quiet:hover {
+    color: var(--color-lk-fg);
+  }
+  .lk-link-quiet:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Skip-Link */
+  .lk-skip {
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translate(-50%, -200%);
+    background: var(--color-lk-accent);
+    color: var(--color-lk-bg);
+    padding: 0.625rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    z-index: 1000;
+    border-radius: 4px;
+    transition: transform 200ms var(--ease-fluid);
+  }
+  .lk-skip:focus {
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

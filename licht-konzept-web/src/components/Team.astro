@@ -1,0 +1,125 @@
+---
+import { getCollection } from 'astro:content';
+
+const members = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="lk-section lk-team" id="team" aria-labelledby="team-title">
+  <div class="lk-container">
+    <header class="lk-team-header" data-reveal>
+      <p class="lk-eyebrow">Atelier</p>
+      <h2 id="team-title" class="lk-h1">
+        Hinter jedem Licht <span class="lk-display-italic">steht ein Mensch.</span>
+      </h2>
+      <p class="lk-body lk-team-intro">
+        Beratung ist Beziehung. Sie sprechen mit denselben Köpfen, die später Ihr Konzept planen
+        und im Raum stehen, wenn die ersten Leuchten brennen.
+      </p>
+    </header>
+
+    <ul class="lk-team-grid" role="list">
+      {members.map((member, i) => (
+        <li class="lk-team-card" data-reveal style={`--reveal-delay: ${i * 140}ms;`}>
+          <div class="lk-team-portrait" aria-hidden="true">
+            <span class="lk-team-initials">{member.data.initials}</span>
+            <div class="lk-team-glow"></div>
+          </div>
+          <div class="lk-team-meta">
+            <h3 class="lk-h3 lk-team-name">{member.data.name}</h3>
+            <p class="lk-label lk-team-role">{member.data.role}</p>
+            <p class="lk-body-tight lk-team-statement" set:html={`„${member.data.statement}"`}></p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .lk-team {
+    background: linear-gradient(180deg, var(--color-lk-bg) 0%, var(--color-lk-bg-elev) 100%);
+  }
+
+  .lk-team-header {
+    max-width: 720px;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .lk-team-intro {
+    margin-top: 1.5rem;
+  }
+
+  .lk-team-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+
+  .lk-team-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .lk-team-portrait {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 4px;
+    background: var(--color-lk-bg-elev);
+    border: 1px solid var(--color-lk-line);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lk-team-initials {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(4rem, 7vw, 6rem);
+    color: var(--color-lk-fg-muted);
+    line-height: 1;
+    z-index: 2;
+    transition: color 600ms var(--ease-fluid);
+  }
+
+  .lk-team-glow {
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(
+      circle at 35% 30%,
+      color-mix(in oklch, var(--color-lk-accent) 25%, transparent) 0%,
+      transparent 50%
+    );
+    opacity: 0.7;
+    transition: opacity 600ms var(--ease-fluid);
+  }
+
+  .lk-team-card:hover .lk-team-glow {
+    opacity: 1;
+  }
+
+  .lk-team-card:hover .lk-team-initials {
+    color: var(--color-lk-accent);
+  }
+
+  .lk-team-name {
+    color: var(--color-lk-fg);
+  }
+
+  .lk-team-role {
+    margin-top: 0.25rem;
+  }
+
+  .lk-team-statement {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    color: var(--color-lk-fg-muted);
+    line-height: 1.5;
+  }
+</style>

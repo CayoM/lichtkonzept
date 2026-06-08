@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Gleicher Raum mit aktiviertem Akzentlicht — gezielte Strahler auf Bilderrahmen und Objekte">
+  <defs>
+    <linearGradient id="k2-floor" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#1a1410" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#0d0a07" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="k2-wall" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#1f1812" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#13100c" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="k2-spot1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f4d5a5" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#c89567" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="k2-spot2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8a96f" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="k2-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="680" fill="url(#k2-wall)"/>
+  <rect y="680" width="1600" height="320" fill="url(#k2-floor)"/>
+  <line x1="0" y1="680" x2="1600" y2="680" stroke="#2a1d12" stroke-width="1" opacity="0.6"/>
+
+  <rect x="500" y="540" width="600" height="140" rx="8" fill="#0d0a07" opacity="0.95"/>
+  <rect x="500" y="540" width="600" height="40" rx="8" fill="#1a1410" opacity="0.95"/>
+  <rect x="500" y="600" width="60" height="80" rx="4" fill="#1a1410"/>
+  <rect x="1040" y="600" width="60" height="80" rx="4" fill="#1a1410"/>
+
+  <!-- Bild 1 hervorgehoben -->
+  <ellipse cx="270" cy="300" rx="200" ry="220" fill="url(#k2-spot1)"/>
+  <rect x="180" y="180" width="180" height="240" stroke="#8a6a3f" stroke-width="2" fill="#3a2818"/>
+
+  <!-- Bild 2 hervorgehoben -->
+  <ellipse cx="1360" cy="310" rx="240" ry="200" fill="url(#k2-spot1)"/>
+  <rect x="1240" y="220" width="240" height="180" stroke="#8a6a3f" stroke-width="2" fill="#3a2818"/>
+
+  <!-- Vase als Akzent -->
+  <ellipse cx="420" cy="580" rx="80" ry="100" fill="url(#k2-spot2)"/>
+  <rect x="380" y="600" width="80" height="80" fill="#1a1410"/>
+  <ellipse cx="420" cy="600" rx="14" ry="5" fill="#5a3a1e"/>
+  <path d="M408,600 Q408,560 420,540 Q432,560 432,600 Z" fill="#7a5230"/>
+
+  <!-- Stehlampe / Pendelleuchte: aus, weil Akzent dominiert -->
+  <line x1="1320" y1="240" x2="1320" y2="680" stroke="#1f1410" stroke-width="2"/>
+  <ellipse cx="1320" cy="240" rx="26" ry="10" fill="#1a0f07"/>
+  <line x1="800" y1="0" x2="800" y2="180" stroke="#1f1410" stroke-width="1"/>
+  <ellipse cx="800" cy="186" rx="28" ry="10" fill="#1a0f07"/>
+
+  <rect width="1600" height="1000" filter="url(#k2-grain)" opacity="0.6"/>
+</svg>

@@ -1,0 +1,66 @@
+---
+import { siteConfig } from '@data/siteConfig';
+const base = import.meta.env.BASE_URL;
+const year = new Date().getFullYear();
+---
+
+<footer class="lk-footer">
+  <div class="lk-divider"></div>
+  <div class="lk-footer-inner">
+    <div class="lk-footer-brand">
+      <span class="lk-display-italic" style="font-size: 1.5rem;">{siteConfig.brand}</span>
+      <p class="lk-body-tight" style="margin-top: 0.5rem; max-width: 38ch;">
+        {siteConfig.address.street} · {siteConfig.address.zip} {siteConfig.address.city}
+      </p>
+    </div>
+
+    <nav class="lk-footer-nav" aria-label="Rechtliches">
+      <ul>
+        <li><a href={`${base}impressum/`} class="lk-link-quiet">Impressum</a></li>
+        <li><a href={`${base}datenschutz/`} class="lk-link-quiet">Datenschutz</a></li>
+      </ul>
+    </nav>
+
+    <div class="lk-footer-meta">
+      <p class="lk-label">© {year} {siteConfig.legalEntity.name}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .lk-footer {
+    padding-inline: var(--gutter);
+    padding-block: 4rem 2rem;
+    background: var(--color-lk-bg);
+  }
+
+  .lk-footer-inner {
+    max-width: 1440px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: end;
+    margin-top: 3rem;
+  }
+
+  .lk-footer-nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .lk-footer-nav a {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 720px) {
+    .lk-footer-inner {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+</style>

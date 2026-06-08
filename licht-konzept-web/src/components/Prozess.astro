@@ -1,0 +1,123 @@
+---
+const steps = [
+  {
+    n: '01',
+    title: 'Beratung',
+    body: 'Erstgespräch, Ortstermin, Raumaufnahme. Wir hören zu, fragen nach, verstehen Ihre Vision.',
+  },
+  {
+    n: '02',
+    title: 'Konzept',
+    body: 'Eine Lichtphilosophie, die zum Raum passt. Drei Schichten, klare Stimmung, technische Tragfähigkeit.',
+  },
+  {
+    n: '03',
+    title: 'Planung',
+    body: 'Technische Detailplanung. Auswahl der passenden Hersteller und Leuchtmittel — passend, nicht beliebig.',
+  },
+  {
+    n: '04',
+    title: 'Umsetzung',
+    body: 'Installation durch erfahrene Partner-Installateure. Bundesweit, präzise, ohne Kompromisse.',
+  },
+];
+---
+
+<section class="lk-section lk-prozess" id="prozess" aria-labelledby="prozess-title">
+  <div class="lk-container">
+    <header class="lk-prozess-header" data-reveal>
+      <p class="lk-eyebrow">Prozess</p>
+      <h2 id="prozess-title" class="lk-h1">
+        Von der Idee zum <span class="lk-display-italic">Erlebnis.</span>
+      </h2>
+    </header>
+
+    <ol class="lk-prozess-grid" role="list">
+      {steps.map((step, i) => (
+        <li class="lk-prozess-step" data-reveal style={`--reveal-delay: ${i * 120}ms;`}>
+          <div class="lk-prozess-marker" aria-hidden="true">
+            <span class="lk-prozess-num lk-label">{step.n}</span>
+            <span class="lk-prozess-dot"></span>
+            {i < steps.length - 1 && <span class="lk-prozess-line"></span>}
+          </div>
+          <div class="lk-prozess-content">
+            <h3 class="lk-h2">{step.title}</h3>
+            <p class="lk-body-tight lk-prozess-body">{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .lk-prozess {
+    background: var(--color-lk-bg);
+  }
+
+  .lk-prozess-header {
+    max-width: 720px;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .lk-prozess-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  .lk-prozess-step {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .lk-prozess-marker {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lk-prozess-num {
+    font-size: 0.8125rem;
+    color: var(--color-lk-accent);
+  }
+
+  .lk-prozess-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-lk-accent);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--color-lk-accent) 15%, transparent);
+    flex-shrink: 0;
+  }
+
+  .lk-prozess-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-lk-line), transparent);
+  }
+
+  .lk-prozess-content h3 {
+    color: var(--color-lk-fg);
+  }
+
+  .lk-prozess-body {
+    margin-top: 0.75rem;
+    max-width: 30ch;
+  }
+
+  @media (max-width: 900px) {
+    .lk-prozess-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .lk-prozess-line {
+      display: none;
+    }
+  }
+</style>

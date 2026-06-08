@@ -1,0 +1,177 @@
+---
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="lk-section lk-referenzen" id="referenzen" aria-labelledby="ref-title">
+  <div class="lk-container">
+    <header class="lk-referenzen-header" data-reveal>
+      <p class="lk-eyebrow">Referenzen</p>
+      <h2 id="ref-title" class="lk-h1">
+        Räume, die wir <span class="lk-display-italic">zum Leben erweckt</span> haben.
+      </h2>
+      <p class="lk-body lk-referenzen-intro">
+        Drei jüngere Arbeiten — Privat und Gewerbe, Altbau und Neubau, ruhig und expressiv.
+        Jedes Projekt einzigartig, jedes nach denselben Prinzipien.
+      </p>
+    </header>
+
+    <ol class="lk-referenzen-list" role="list">
+      {projects.map((project, i) => {
+        const isReversed = i % 2 === 1;
+        return (
+          <li class={`lk-ref-item ${isReversed ? 'is-reversed' : ''}`} data-reveal>
+            <figure class="lk-ref-figure">
+              <div class="lk-ref-image">
+                <img
+                  src={`${base.replace(/\/$/, '')}${project.data.cover}`}
+                  alt={project.data.coverAlt}
+                  loading="lazy"
+                  decoding="async"
+                />
+                {project.data.placeholder && (
+                  <span class="lk-ref-placeholder lk-label" aria-hidden="true">Demo-Bild</span>
+                )}
+              </div>
+            </figure>
+            <div class="lk-ref-content">
+              <p class="lk-label">
+                {project.data.kind === 'privat' ? 'Privatraum' : 'Gewerberaum'} · {project.data.location} · {project.data.year}
+              </p>
+              <h3 class="lk-h2 lk-ref-title">{project.data.title}</h3>
+              <p class="lk-body-tight lk-ref-body">{project.data.summary}</p>
+              <ul class="lk-ref-tags" aria-label="Projekt-Merkmale">
+                {project.data.tags.map((tag) => (
+                  <li>
+                    <span class="lk-ref-tag">{tag}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .lk-referenzen {
+    background: var(--color-lk-bg);
+  }
+
+  .lk-referenzen-header {
+    max-width: 720px;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .lk-referenzen-intro {
+    margin-top: 1.5rem;
+  }
+
+  .lk-referenzen-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4rem, 8vw, 7rem);
+  }
+
+  .lk-ref-item {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .lk-ref-item.is-reversed {
+    grid-template-columns: 1fr 1.15fr;
+  }
+
+  .lk-ref-item.is-reversed .lk-ref-figure {
+    order: 2;
+  }
+
+  .lk-ref-figure {
+    margin: 0;
+  }
+
+  .lk-ref-image {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 4px;
+    background: var(--color-lk-bg-elev);
+    border: 1px solid var(--color-lk-line);
+  }
+
+  .lk-ref-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1200ms var(--ease-cinema);
+  }
+
+  .lk-ref-item:hover .lk-ref-image img {
+    transform: scale(1.035);
+  }
+
+  .lk-ref-placeholder {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: color-mix(in oklch, var(--color-lk-bg) 70%, transparent);
+    padding: 0.375rem 0.625rem;
+    border-radius: 4px;
+    border: 1px solid var(--color-lk-line);
+    backdrop-filter: blur(4px);
+    color: var(--color-lk-fg-muted);
+    font-size: 0.625rem;
+  }
+
+  .lk-ref-content {
+    max-width: 52ch;
+  }
+
+  .lk-ref-title {
+    margin-top: 1rem;
+  }
+
+  .lk-ref-body {
+    margin-top: 1.25rem;
+  }
+
+  .lk-ref-tags {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .lk-ref-tag {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--color-lk-line);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    color: var(--color-lk-fg-muted);
+    font-family: var(--font-body);
+  }
+
+  @media (max-width: 900px) {
+    .lk-ref-item,
+    .lk-ref-item.is-reversed {
+      grid-template-columns: 1fr;
+    }
+    .lk-ref-item.is-reversed .lk-ref-figure {
+      order: 0;
+    }
+  }
+</style>

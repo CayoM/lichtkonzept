@@ -1,0 +1,97 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { siteConfig } from '@data/siteConfig';
+import SiteHeader from '@components/SiteHeader.astro';
+import SiteFooter from '@components/SiteFooter.astro';
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+
+const pageTitle = title
+  ? `${title} — ${siteConfig.brand}`
+  : `${siteConfig.brand} — Lichtberatung &amp; Konzepte`;
+const pageDescription = description ?? siteConfig.description;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const ogImageUrl = new URL(ogImage ?? '/og-image.svg', Astro.site ?? Astro.url).toString();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: siteConfig.brand,
+  legalName: siteConfig.legalEntity.name,
+  description: siteConfig.description,
+  url: canonical,
+  telephone: siteConfig.contact.phoneIntl,
+  email: siteConfig.contact.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteConfig.address.street,
+    postalCode: siteConfig.address.zip,
+    addressLocality: siteConfig.address.city,
+    addressCountry: 'DE',
+  },
+};
+---
+
+<!doctype html>
+<html lang="de" data-daypart="day">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0a0807" />
+    <meta name="color-scheme" content="dark" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="de_DE" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+    <ClientRouter />
+  </head>
+  <body>
+    <a href="#main" class="lk-skip">Zum Inhalt springen</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <script>
+      import '@lib/timeOfDay';
+      import '@lib/scrollReveal';
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 900ms var(--ease-cinema),
+      transform 900ms var(--ease-cinema);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: transform, opacity;
+  }
+  [data-reveal][data-revealed='true'] {
+    opacity: 1;
+    transform: none;
+  }
+</style>

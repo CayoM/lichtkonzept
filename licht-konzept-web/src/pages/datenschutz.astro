@@ -1,0 +1,90 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { siteConfig } from '@data/siteConfig';
+---
+
+<BaseLayout title="Datenschutz" description="Datenschutzerklärung — Licht Konzept">
+  <article class="lk-section lk-prose">
+    <div class="lk-container">
+      <p class="lk-eyebrow">Rechtliches</p>
+      <h1 class="lk-h1" style="margin-top: 1rem;">Datenschutz</h1>
+
+      <div class="lk-prose-body">
+        <h2 class="lk-h2">1. Datenschutz auf einen Blick</h2>
+        <p>
+          Diese Website verarbeitet personenbezogene Daten nur, wenn Sie uns aktiv kontaktieren
+          (per Telefon oder E-Mail). Es werden keine Cookies gesetzt, kein Tracking eingesetzt
+          und keine Daten an Dritte weitergegeben.
+        </p>
+
+        <h2 class="lk-h2">2. Verantwortliche Stelle</h2>
+        <p>
+          {siteConfig.legalEntity.name}<br />
+          {siteConfig.address.street}<br />
+          {siteConfig.address.zip} {siteConfig.address.city}<br />
+          E-Mail:{' '}
+          <a href={`mailto:${siteConfig.contact.email}`} class="lk-link-quiet">{siteConfig.contact.email}</a>
+        </p>
+
+        <h2 class="lk-h2">3. Server-Logs</h2>
+        <p>
+          Diese Website wird statisch über GitHub Pages ausgeliefert. Der Hosting-Anbieter
+          (GitHub Inc.) kann technisch erforderliche Server-Logs erheben (IP-Adresse, User-Agent,
+          Referer, Zeitstempel). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+          Interesse an einer technisch fehlerfreien Auslieferung). Details:{' '}
+          <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" class="lk-link-quiet" rel="noopener noreferrer" target="_blank">
+            GitHub Privacy Statement
+          </a>
+          .
+        </p>
+
+        <h2 class="lk-h2">4. Kontaktaufnahme</h2>
+        <p>
+          Wenn Sie uns per E-Mail oder Telefon kontaktieren, werden Ihre Angaben zwecks
+          Bearbeitung der Anfrage verarbeitet. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO
+          (vorvertragliche Maßnahmen). Die Daten werden nach Erledigung gelöscht, sofern keine
+          gesetzlichen Aufbewahrungspflichten bestehen.
+        </p>
+
+        <h2 class="lk-h2">5. Ihre Rechte</h2>
+        <p>
+          Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung
+          (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20)
+          und Widerspruch (Art. 21) sowie das Recht auf Beschwerde bei einer Aufsichtsbehörde
+          (Art. 77 DSGVO).
+        </p>
+
+        <h2 class="lk-h2">6. Externe Schriften</h2>
+        <p>
+          Schriften (EB Garamond, Inter Tight, JetBrains Mono) werden lokal vom Webserver
+          ausgeliefert. Es findet keine Verbindung zu Google Fonts oder anderen externen
+          CDNs statt.
+        </p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .lk-prose {
+    padding-top: 12rem;
+  }
+
+  .lk-prose-body {
+    max-width: 65ch;
+    margin-top: 3rem;
+    color: var(--color-lk-fg-muted);
+    line-height: 1.7;
+  }
+
+  .lk-prose-body h2 {
+    color: var(--color-lk-fg);
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+  }
+
+  .lk-prose-body p {
+    margin-bottom: 1rem;
+  }
+</style>

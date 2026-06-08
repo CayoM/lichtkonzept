@@ -1,0 +1,157 @@
+---
+import { siteConfig } from '@data/siteConfig';
+
+const mailto = `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent('Anfrage Lichtgespräch')}`;
+const telLink = `tel:${siteConfig.contact.phoneIntl.replace(/\s/g, '')}`;
+const mobLink = `tel:${siteConfig.contact.mobileIntl.replace(/\s/g, '')}`;
+---
+
+<section class="lk-section lk-kontakt" id="kontakt" aria-labelledby="kontakt-title">
+  <div class="lk-container">
+    <div class="lk-kontakt-inner" data-reveal>
+      <p class="lk-eyebrow">Kontakt</p>
+      <h2 id="kontakt-title" class="lk-display lk-kontakt-headline">
+        Lichtgespräch <span class="lk-display-italic">buchen.</span>
+      </h2>
+      <p class="lk-body lk-kontakt-sub">
+        Unverbindlich. Persönlich. 30 Minuten vor Ort oder per Video. Wir hören zu,
+        skizzieren erste Ansätze und sagen ehrlich, ob wir der richtige Partner sind.
+      </p>
+
+      <div class="lk-kontakt-channels">
+        <a href={telLink} class="lk-channel">
+          <span class="lk-label">Festnetz</span>
+          <span class="lk-channel-value">{siteConfig.contact.phone}</span>
+          <span class="lk-channel-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href={mobLink} class="lk-channel">
+          <span class="lk-label">Mobil</span>
+          <span class="lk-channel-value">{siteConfig.contact.mobile}</span>
+          <span class="lk-channel-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href={mailto} class="lk-channel">
+          <span class="lk-label">E-Mail</span>
+          <span class="lk-channel-value">{siteConfig.contact.email}</span>
+          <span class="lk-channel-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <address class="lk-kontakt-address lk-body-tight">
+        <span class="lk-label">Atelier</span><br />
+        {siteConfig.address.street}<br />
+        {siteConfig.address.zip} {siteConfig.address.city}<br />
+        {siteConfig.address.country}
+      </address>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lk-kontakt {
+    background: var(--color-lk-bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lk-kontakt::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vmin;
+    height: 80vmin;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklch, var(--color-lk-accent) 12%, transparent) 0%,
+      transparent 60%
+    );
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .lk-kontakt-inner {
+    max-width: 920px;
+    margin-inline: auto;
+    position: relative;
+  }
+
+  .lk-kontakt-headline {
+    margin-top: 1.5rem;
+  }
+
+  .lk-kontakt-sub {
+    margin-top: 2rem;
+    max-width: 56ch;
+  }
+
+  .lk-kontakt-channels {
+    margin-top: clamp(3rem, 5vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-lk-line);
+  }
+
+  .lk-channel {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
+    border-bottom: 1px solid var(--color-lk-line);
+    transition:
+      background 400ms var(--ease-fluid),
+      padding 400ms var(--ease-fluid);
+  }
+
+  .lk-channel:hover {
+    background: color-mix(in oklch, var(--color-lk-accent) 5%, transparent);
+    padding-inline: 1rem;
+  }
+
+  .lk-channel-value {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+    color: var(--color-lk-fg);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+
+  .lk-channel:hover .lk-channel-value {
+    color: var(--color-lk-accent);
+  }
+
+  .lk-channel-arrow {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-lk-fg-quiet);
+    transition:
+      transform 400ms var(--ease-fluid),
+      color 400ms var(--ease-fluid);
+  }
+
+  .lk-channel:hover .lk-channel-arrow {
+    color: var(--color-lk-accent);
+    transform: translateX(8px);
+  }
+
+  .lk-kontakt-address {
+    margin-top: clamp(3rem, 5vw, 4rem);
+    font-style: normal;
+    color: var(--color-lk-fg-muted);
+    line-height: 1.7;
+  }
+
+  .lk-kontakt-address .lk-label {
+    color: var(--color-lk-fg-quiet);
+  }
+
+  @media (max-width: 640px) {
+    .lk-channel {
+      grid-template-columns: 1fr auto;
+    }
+    .lk-channel .lk-label {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

@@ -1,0 +1,29 @@
+# Dependencies
+**/node_modules/
+**/bun.lock
+**/bun.lockb
+
+# Build outputs
+**/dist/
+**/.astro/
+
+# Dev artefacts
+**/dev.log
+**/dev.err
+**/.cache/
+
+# Brainstorm session state
+.superpowers/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/launch.json
+.idea/
+
+# Env
+.env
+.env.local
+.env.production

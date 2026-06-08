@@ -1,0 +1,29 @@
+services:
+  # Development-Server mit Hot-Reload
+  dev:
+    build:
+      context: .
+      target: dev
+    container_name: lichtkonzept-dev
+    ports:
+      - "4321:4321"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./astro.config.mjs:/app/astro.config.mjs
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./package.json:/app/package.json
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    profiles: ['dev']
+
+  # Production-nginx (Self-Hosting Alternative zu GH Pages)
+  serve:
+    build:
+      context: .
+      target: serve
+    container_name: lichtkonzept-serve
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    profiles: ['serve']

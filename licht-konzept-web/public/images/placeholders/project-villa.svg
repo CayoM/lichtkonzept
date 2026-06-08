@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Moderne Villa mit Glasfront bei Dämmerung, warm beleuchtet von innen">
+  <defs>
+    <linearGradient id="pv-sky" x1="0" y1="0" x2="0" y2="100%"><stop offset="0%" stop-color="#0d1418"/><stop offset="60%" stop-color="#1a2028"/><stop offset="100%" stop-color="#221810"/></linearGradient>
+    <linearGradient id="pv-interior" x1="0" y1="0" x2="0" y2="100%"><stop offset="0%" stop-color="#3a2818" stop-opacity="0.7"/><stop offset="100%" stop-color="#1a1208" stop-opacity="0.9"/></linearGradient>
+    <radialGradient id="pv-warm" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#f4d5a5" stop-opacity="0.45"/><stop offset="100%" stop-color="#000" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="640" fill="url(#pv-sky)"/>
+  <rect y="640" width="1600" height="460" fill="#0a0807"/>
+  <!-- Villa-Volumen -->
+  <rect x="220" y="380" width="1160" height="320" fill="#100c08"/>
+  <!-- Glasfront -->
+  <rect x="260" y="400" width="1080" height="280" fill="url(#pv-interior)"/>
+  <rect x="260" y="400" width="1080" height="280" fill="url(#pv-warm)"/>
+  <!-- Pfosten -->
+  <line x1="530" y1="400" x2="530" y2="680" stroke="#1a0f07" stroke-width="3"/>
+  <line x1="800" y1="400" x2="800" y2="680" stroke="#1a0f07" stroke-width="3"/>
+  <line x1="1070" y1="400" x2="1070" y2="680" stroke="#1a0f07" stroke-width="3"/>
+  <!-- Decken-Oberkante -->
+  <line x1="220" y1="380" x2="1380" y2="380" stroke="#2a1d12" stroke-width="2"/>
+  <line x1="220" y1="700" x2="1380" y2="700" stroke="#2a1d12" stroke-width="2"/>
+  <!-- Innenraum-Lichtpunkte -->
+  <ellipse cx="400" cy="540" rx="30" ry="10" fill="#ffe6b5" opacity="0.8"/>
+  <ellipse cx="680" cy="540" rx="30" ry="10" fill="#ffe6b5" opacity="0.8"/>
+  <ellipse cx="930" cy="540" rx="30" ry="10" fill="#ffe6b5" opacity="0.8"/>
+  <ellipse cx="1200" cy="540" rx="30" ry="10" fill="#ffe6b5" opacity="0.8"/>
+  <!-- Spiegelung im Garten/Boden -->
+  <rect x="220" y="700" width="1160" height="240" fill="url(#pv-warm)" opacity="0.4"/>
+</svg>

@@ -34,9 +34,8 @@ docker compose --profile serve up    # nginx Production auf :8080
 
 ### GitHub Pages (automatisch)
 
-Der Workflow `.github/workflows/deploy.yml` (im Repo-Root, nicht in
-diesem Unterordner) baut bei jedem Push auf `main` automatisch und pusht
-das Ergebnis in den Branch `gh-pages`.
+Der Workflow `.github/workflows/deploy.yml` baut bei jedem Push auf
+`main` automatisch und pusht das Ergebnis in den Branch `gh-pages`.
 
 **Einmaliges Setup nach erstem Push:**
 1. Repo-Settings → Pages
@@ -111,7 +110,6 @@ SVG-Placeholder in `public/images/placeholders/`. Tausch:
 ## Verzeichnisstruktur
 
 ```
-licht-konzept-web/
 ├── src/
 │   ├── components/   Hero, Manifest, KellySlider, Prozess, Referenzen, Team, Partner, Kontakt, SiteHeader, SiteFooter
 │   ├── content/      projects/, team/ als Content Collections
@@ -121,13 +119,9 @@ licht-konzept-web/
 │   ├── pages/        index.astro, impressum.astro, datenschutz.astro
 │   └── styles/       global.css mit @theme
 ├── public/images/    Placeholders, Favicons
+├── scripts/          Sharp-basiertes Image-Crop-Tooling
 ├── astro.config.mjs
 ├── Dockerfile        Multi-Stage (dev/build/serve)
 ├── docker-compose.yml
 └── .github/workflows/deploy.yml
 ```
-
-## Spec
-
-Die Design-Spezifikation liegt im Eltern-Verzeichnis:
-`../docs/superpowers/specs/2026-06-08-lichtkonzept-homepage-design.md`

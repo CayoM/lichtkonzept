@@ -7,10 +7,12 @@ const projects = defineCollection({
     title: z.string(),
     location: z.string(),
     kind: z.enum(['privat', 'gewerbe']),
-    year: z.number().int().min(1990).max(2100),
+    year: z.number().int().min(1990).max(2100).optional(),
     summary: z.string().max(280),
     cover: z.string(),
     coverAlt: z.string(),
+    /** CSS object-position für das Cover, um Text-Overlays auszublenden. Default: center */
+    coverPosition: z.string().default('center'),
     tags: z.array(z.string()).default([]),
     partners: z.array(z.string()).default([]),
     draft: z.boolean().default(false),

@@ -5,6 +5,8 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
   (a, b) => a.data.order - b.data.order,
 );
 const base = import.meta.env.BASE_URL;
+
+const stripBase = (p: string): string => p.replace(/^\//, '');
 ---
 
 <section class="lk-section lk-referenzen" id="referenzen" aria-labelledby="ref-title">
@@ -15,8 +17,8 @@ const base = import.meta.env.BASE_URL;
         Räume, die wir <span class="lk-display-italic">zum Leben erweckt</span> haben.
       </h2>
       <p class="lk-body lk-referenzen-intro">
-        Drei jüngere Arbeiten — Privat und Gewerbe, Altbau und Neubau, ruhig und expressiv.
-        Jedes Projekt einzigartig, jedes nach denselben Prinzipien.
+        Eine Auswahl aktueller Studio-Projekte — gemeinsam mit Studio Konzept und Boden Konzept
+        realisiert.
       </p>
     </header>
 
@@ -28,19 +30,17 @@ const base = import.meta.env.BASE_URL;
             <figure class="lk-ref-figure">
               <div class="lk-ref-image">
                 <img
-                  src={`${base.replace(/\/$/, '')}${project.data.cover}`}
+                  src={`${base}${stripBase(project.data.cover)}`}
                   alt={project.data.coverAlt}
                   loading="lazy"
                   decoding="async"
+                  style={`object-position: ${project.data.coverPosition};`}
                 />
-                {project.data.placeholder && (
-                  <span class="lk-ref-placeholder lk-label" aria-hidden="true">Demo-Bild</span>
-                )}
               </div>
             </figure>
             <div class="lk-ref-content">
               <p class="lk-label">
-                {project.data.kind === 'privat' ? 'Privatraum' : 'Gewerberaum'} · {project.data.location} · {project.data.year}
+                {project.data.kind === 'privat' ? 'Privatraum' : 'Gewerberaum'} · {project.data.location}
               </p>
               <h3 class="lk-h2 lk-ref-title">{project.data.title}</h3>
               <p class="lk-body-tight lk-ref-body">{project.data.summary}</p>
@@ -70,7 +70,7 @@ const base = import.meta.env.BASE_URL;
   }
 
   .lk-referenzen-intro {
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
   }
 
   .lk-referenzen-list {
@@ -84,13 +84,13 @@ const base = import.meta.env.BASE_URL;
 
   .lk-ref-item {
     display: grid;
-    grid-template-columns: 1.15fr 1fr;
+    grid-template-columns: 1.2fr 1fr;
     gap: clamp(2rem, 5vw, 4rem);
     align-items: center;
   }
 
   .lk-ref-item.is-reversed {
-    grid-template-columns: 1fr 1.15fr;
+    grid-template-columns: 1fr 1.2fr;
   }
 
   .lk-ref-item.is-reversed .lk-ref-figure {
@@ -103,7 +103,7 @@ const base = import.meta.env.BASE_URL;
 
   .lk-ref-image {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
     overflow: hidden;
     border-radius: 4px;
     background: var(--color-lk-bg-elev);
@@ -118,20 +118,7 @@ const base = import.meta.env.BASE_URL;
   }
 
   .lk-ref-item:hover .lk-ref-image img {
-    transform: scale(1.035);
-  }
-
-  .lk-ref-placeholder {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: color-mix(in oklch, var(--color-lk-bg) 70%, transparent);
-    padding: 0.375rem 0.625rem;
-    border-radius: 4px;
-    border: 1px solid var(--color-lk-line);
-    backdrop-filter: blur(4px);
-    color: var(--color-lk-fg-muted);
-    font-size: 0.625rem;
+    transform: scale(1.04);
   }
 
   .lk-ref-content {
@@ -139,17 +126,17 @@ const base = import.meta.env.BASE_URL;
   }
 
   .lk-ref-title {
-    margin-top: 1rem;
+    margin-top: 0.625rem;
   }
 
   .lk-ref-body {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
   }
 
   .lk-ref-tags {
     list-style: none;
     padding: 0;
-    margin: 1.5rem 0 0;
+    margin: 1.25rem 0 0;
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;

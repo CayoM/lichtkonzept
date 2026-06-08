@@ -10,6 +10,8 @@
 # Dev artefacts
 **/dev.log
 **/dev.err
+**/preview.log
+**/preview.err
 **/.cache/
 
 # Brainstorm session state

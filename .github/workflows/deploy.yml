@@ -1,0 +1,70 @@
+name: Build and Deploy to gh-pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Erlaubt dem Workflow, Inhalte in den Ziel-Branch (gh-pages) zu pushen.
+permissions:
+  contents: write
+
+# Nur ein Deploy gleichzeitig.
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: licht-konzept-web
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+
+      - name: Install dependencies
+        run: bun install --no-frozen-lockfile
+
+      - name: Resolve site URL and base path
+        id: site
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          OWNER_LOWER=$(echo "${GITHUB_REPOSITORY_OWNER}" | tr '[:upper:]' '[:lower:]')
+          USER_PAGE_REPO="${OWNER_LOWER}.github.io"
+          if [ "$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')" = "$USER_PAGE_REPO" ]; then
+            echo "site=https://${OWNER_LOWER}.github.io" >> "$GITHUB_OUTPUT"
+            echo "base=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "site=https://${OWNER_LOWER}.github.io" >> "$GITHUB_OUTPUT"
+            echo "base=/${REPO_NAME}/" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        env:
+          PUBLIC_SITE_URL: ${{ steps.site.outputs.site }}
+          PUBLIC_BASE_PATH: ${{ steps.site.outputs.base }}
+        run: bun run build
+
+      - name: Add .nojekyll
+        run: |
+          touch dist/.nojekyll
+          ls -la dist/ | head -20
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./licht-konzept-web/dist
+          publish_branch: gh-pages
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'deploy: ${{ github.event.head_commit.message }}'

@@ -34,11 +34,18 @@ docker compose --profile serve up    # nginx Production auf :8080
 
 ### GitHub Pages (automatisch)
 
-1. Repository auf GitHub anlegen (öffentlich oder GitHub Pro Privat).
-2. In Repo-Settings → Pages → **Source = GitHub Actions** wählen.
-3. Push auf `main`. Workflow `.github/workflows/deploy.yml` baut + deployt automatisch.
+Der Workflow `.github/workflows/deploy.yml` (im Repo-Root, nicht in
+diesem Unterordner) baut bei jedem Push auf `main` automatisch und pusht
+das Ergebnis in den Branch `gh-pages`.
 
-Site-URL und Base-Path werden im Workflow automatisch aus dem Repo-Namen abgeleitet:
+**Einmaliges Setup nach erstem Push:**
+1. Repo-Settings → Pages
+2. **Source: Deploy from a branch**
+3. **Branch: `gh-pages`** / **Folder: `/ (root)`**
+4. Save
+
+Site-URL und Base-Path werden im Workflow automatisch aus dem
+Repo-Namen abgeleitet:
 - User-Page Repo (`<user>.github.io`): `https://<user>.github.io`, `base=/`
 - Project-Page Repo: `https://<user>.github.io/<repo>/`, `base=/<repo>/`
 

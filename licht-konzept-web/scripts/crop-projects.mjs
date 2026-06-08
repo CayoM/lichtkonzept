@@ -1,10 +1,13 @@
 #!/usr/bin/env bun
 /**
  * Bild-Crops für Projekt-Cover.
- * Schneidet die Instagram-FINISHED-PROJECT-Overlays raus und konzentriert
- * sich auf die Bereiche mit echtem Licht/Architektur.
+ * Schneidet Text-Overlays raus und fokussiert auf den Lichtbereich.
  *
  * Run: bun scripts/crop-projects.mjs
+ *
+ * Beispiel-Eintrag:
+ * { src: 'rohe-aufnahme.jpg', dst: 'projektname.jpg',
+ *   region: { left: 0, top: 0, width: 1080, height: 450 } }
  */
 import sharp from 'sharp';
 import { fileURLToPath } from 'node:url';
@@ -13,50 +16,33 @@ import { join, dirname, resolve } from 'node:path';
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SCRIPT_DIR, '..', 'public', 'images', 'projects');
-const OUT = ROOT;
 
 /**
- * Crops in (top, height) absolute pixels of a 1080×1920 source.
- * Result is saved as a horizontal landscape image.
+ * Crops in absolute pixel coordinates of the source image.
+ * Aktuell aktiv: keine. Bei Bedarf hier eintragen.
  */
 const CROPS = [
-  {
-    src: 'studio-cardio.jpg',
-    dst: 'studio-cardio-pendants.jpg',
-    region: { left: 0, top: 0, width: 1080, height: 450 },
-    description: 'Top 23% — zwei Pendelleuchten ohne FINISHED-Text',
-  },
-  {
-    src: 'fresh-up-tracks.jpg',
-    dst: 'fresh-up-tracks-clean.jpg',
-    // Right half — backlit Smith machine area with track lighting on ceiling visible at top
-    region: { left: 540, top: 80, width: 540, height: 1200 },
-    description: 'Rechter Bildbereich — Smith Machine + Track-Licht an Decke',
-  },
-  {
-    src: 'studio-konzept-green.jpg',
-    dst: 'studio-konzept-green-clean.jpg',
-    // Top region with the ceiling panel light + window light + indirect cove glow along left wall
-    region: { left: 0, top: 0, width: 1080, height: 400 },
-    description: 'Oberer Bildbereich — Deckenpanel + indirekte Wandbeleuchtung',
-  },
+  // Beispiel:
+  // {
+  //   src: 'raw-input.jpg',
+  //   dst: 'project-feature.jpg',
+  //   region: { left: 0, top: 0, width: 1080, height: 450 },
+  //   description: 'Top 23% — Lichtfeature ohne Text',
+  // },
 ];
 
-const ensureDir = async (p) => {
-  const d = dirname(p);
-  if (d && d !== '.' && d !== '/' && d.length > 3) {
-    await mkdir(d, { recursive: true });
-  }
-};
+if (CROPS.length === 0) {
+  console.log('[info] Keine Crops definiert. Beispiel im Script-Header.');
+  process.exit(0);
+}
 
 for (const c of CROPS) {
   const src = join(ROOT, c.src);
-  const dst = join(OUT, c.dst);
-  await ensureDir(dst);
+  const dst = join(ROOT, c.dst);
   try {
     const meta = await sharp(src).metadata();
     if (!meta.width || !meta.height) {
-      console.error(`[skip] ${c.src} — no dimensions`);
+      console.error(`[skip] ${c.src} — keine Dimensionen`);
       continue;
     }
     if (
@@ -66,7 +52,7 @@ for (const c of CROPS) {
       c.region.top + c.region.height > meta.height
     ) {
       console.error(
-        `[skip] ${c.src} — region out of bounds (image is ${meta.width}×${meta.height})`,
+        `[skip] ${c.src} — region out of bounds (${meta.width}×${meta.height})`,
       );
       continue;
     }
@@ -75,7 +61,7 @@ for (const c of CROPS) {
       .jpeg({ quality: 88, mozjpeg: true })
       .toFile(dst);
     console.log(`[ok]   ${c.src} → ${c.dst} (${c.region.width}×${c.region.height})`);
-    console.log(`        ${c.description}`);
+    if (c.description) console.log(`        ${c.description}`);
   } catch (err) {
     console.error(`[err]  ${c.src}: ${err.message}`);
   }

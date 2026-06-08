@@ -28,8 +28,7 @@
 
   /* === Layout === */
   --gutter: clamp(1rem, 4vw, 3rem);
-  --section-gap: clamp(3rem, 6vh, 5rem);
-  --section-gap-tight: clamp(2rem, 4vh, 3.5rem);
+  --section-gap: clamp(4rem, 8vh, 6rem);
 }
 
 /* === Tageszeit-Layer: Abend (17–6 Uhr) === */
@@ -168,13 +167,9 @@
     color: var(--color-lk-accent);
   }
 
-  .lk-section {
-    padding-block: var(--section-gap);
-    padding-inline: var(--gutter);
-  }
-
+  .lk-section,
   .lk-section--tight {
-    padding-block: var(--section-gap-tight);
+    padding-block: var(--section-gap);
     padding-inline: var(--gutter);
   }
 

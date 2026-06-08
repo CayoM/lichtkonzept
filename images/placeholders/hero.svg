@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1280" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Lichtstimmung in einem hochwertigen Innenraum">
+  <defs>
+    <radialGradient id="hero-glow" cx="35%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#f4d5a5" stop-opacity="0.55"/>
+      <stop offset="35%" stop-color="#c89567" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="hero-glow2" cx="78%" cy="62%" r="40%">
+      <stop offset="0%" stop-color="#e8a96f" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hero-floor" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#1a1410" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#0a0807" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#050403" stop-opacity="1"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1280" fill="url(#hero-floor)"/>
+
+  <!-- Wandlinien -->
+  <line x1="0" y1="780" x2="1920" y2="780" stroke="#3a2818" stroke-width="1" opacity="0.5"/>
+  <line x1="640" y1="0" x2="640" y2="1280" stroke="#2a1d12" stroke-width="1" opacity="0.4"/>
+  <line x1="1280" y1="0" x2="1280" y2="1280" stroke="#2a1d12" stroke-width="1" opacity="0.4"/>
+
+  <!-- Glühschicht zentral -->
+  <rect width="1920" height="1280" fill="url(#hero-glow)"/>
+  <rect width="1920" height="1280" fill="url(#hero-glow2)"/>
+
+  <!-- Lampe links: Pendelleuchte -->
+  <line x1="500" y1="0" x2="500" y2="280" stroke="#3a2818" stroke-width="1.5" opacity="0.7"/>
+  <ellipse cx="500" cy="290" rx="38" ry="14" fill="#1a0f07"/>
+  <ellipse cx="500" cy="285" rx="36" ry="12" fill="#5a3a1e"/>
+  <ellipse cx="500" cy="290" rx="60" ry="22" fill="#f4d5a5" opacity="0.25" filter="blur(20px)"/>
+
+  <!-- Lampe rechts: Wandleuchte -->
+  <rect x="1450" y="380" width="4" height="80" fill="#2a1d12"/>
+  <circle cx="1452" cy="500" r="18" fill="#5a3a1e"/>
+  <circle cx="1452" cy="500" r="35" fill="#e8a96f" opacity="0.3" filter="blur(8px)"/>
+
+  <!-- Tisch-Silhouette unten -->
+  <rect x="600" y="950" width="720" height="6" fill="#2a1d12" opacity="0.85"/>
+  <rect x="640" y="956" width="6" height="220" fill="#1f140c" opacity="0.7"/>
+  <rect x="1274" y="956" width="6" height="220" fill="#1f140c" opacity="0.7"/>
+
+  <!-- Vase Silhouette mit warmem Glanz -->
+  <ellipse cx="800" cy="940" rx="22" ry="8" fill="#1a0f07"/>
+  <path d="M780,940 Q780,860 800,820 Q820,860 820,940 Z" fill="#2a1d12" opacity="0.9"/>
+  <ellipse cx="800" cy="828" rx="8" ry="14" fill="#e8a96f" opacity="0.4"/>
+
+  <!-- Grain Overlay -->
+  <rect width="1920" height="1280" filter="url(#grain)" opacity="0.8"/>
+
+  <!-- Vignette -->
+  <radialGradient id="hero-vignette" cx="50%" cy="55%" r="75%">
+    <stop offset="60%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000" stop-opacity="0.65"/>
+  </radialGradient>
+  <rect width="1920" height="1280" fill="url(#hero-vignette)"/>
+</svg>

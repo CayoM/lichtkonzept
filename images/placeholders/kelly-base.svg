@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Basisaufnahme eines minimalistischen Innenraums ohne aktivierte Lichtschichten">
+  <defs>
+    <linearGradient id="kb-floor" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#15110d" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#0a0807" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="kb-wall" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#1a1612" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#100c08" stop-opacity="1"/>
+    </linearGradient>
+    <filter id="kb-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0"/>
+    </filter>
+  </defs>
+
+  <!-- Wand -->
+  <rect width="1600" height="680" fill="url(#kb-wall)"/>
+  <!-- Boden -->
+  <rect y="680" width="1600" height="320" fill="url(#kb-floor)"/>
+  <!-- Bodenkante -->
+  <line x1="0" y1="680" x2="1600" y2="680" stroke="#2a1d12" stroke-width="1" opacity="0.7"/>
+
+  <!-- Möbel-Silhouetten (Sofa) -->
+  <rect x="500" y="540" width="600" height="140" rx="8" fill="#0d0a07" opacity="0.95"/>
+  <rect x="500" y="540" width="600" height="40" rx="8" fill="#1a1410" opacity="0.95"/>
+  <rect x="500" y="600" width="60" height="80" rx="4" fill="#1a1410"/>
+  <rect x="1040" y="600" width="60" height="80" rx="4" fill="#1a1410"/>
+
+  <!-- Bilderrahmen an der Wand -->
+  <rect x="180" y="180" width="180" height="240" stroke="#2a1d12" stroke-width="2" fill="#100c08"/>
+  <rect x="1240" y="220" width="240" height="180" stroke="#2a1d12" stroke-width="2" fill="#100c08"/>
+
+  <!-- Stehlampe rechts -->
+  <line x1="1320" y1="240" x2="1320" y2="680" stroke="#1f1410" stroke-width="2"/>
+  <ellipse cx="1320" cy="240" rx="26" ry="10" fill="#1a0f07"/>
+
+  <!-- Pendelleuchte zentral -->
+  <line x1="800" y1="0" x2="800" y2="180" stroke="#1f1410" stroke-width="1"/>
+  <ellipse cx="800" cy="186" rx="28" ry="10" fill="#1a0f07"/>
+
+  <!-- Vase auf Sofa-Beistelltisch (schwach) -->
+  <rect x="380" y="600" width="80" height="80" fill="#13100c"/>
+  <ellipse cx="420" cy="600" rx="14" ry="5" fill="#1f150e"/>
+  <path d="M408,600 Q408,560 420,540 Q432,560 432,600 Z" fill="#1f150e"/>
+
+  <rect width="1600" height="1000" filter="url(#kb-grain)" opacity="0.7"/>
+</svg>

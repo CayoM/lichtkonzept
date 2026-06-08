@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Altbau-Wohnung mit Stuckdecke und warmem Akzentlicht">
+  <defs>
+    <linearGradient id="pa-bg" x1="0" y1="0" x2="0" y2="100%"><stop offset="0%" stop-color="#1a1208"/><stop offset="100%" stop-color="#0a0604"/></linearGradient>
+    <radialGradient id="pa-glow" cx="50%" cy="35%" r="50%"><stop offset="0%" stop-color="#f4d5a5" stop-opacity="0.45"/><stop offset="100%" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <pattern id="pa-stuck" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <circle cx="40" cy="40" r="3" fill="#3a2818" opacity="0.6"/>
+      <circle cx="40" cy="40" r="14" fill="none" stroke="#2a1d12" stroke-width="1" opacity="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1100" fill="url(#pa-bg)"/>
+  <rect x="0" y="0" width="1600" height="160" fill="url(#pa-stuck)" opacity="0.7"/>
+  <rect x="0" y="158" width="1600" height="1" fill="#3a2818" opacity="0.5"/>
+  <rect width="1600" height="1100" fill="url(#pa-glow)"/>
+  <!-- Pendelleuchte hochwertig -->
+  <line x1="800" y1="0" x2="800" y2="220" stroke="#3a2818" stroke-width="1.5"/>
+  <ellipse cx="800" cy="240" rx="55" ry="20" fill="#1a0f07"/>
+  <ellipse cx="800" cy="250" rx="40" ry="14" fill="#ffe6b5" opacity="0.6"/>
+  <ellipse cx="800" cy="340" rx="180" ry="120" fill="#f4d5a5" opacity="0.25" filter="blur(40px)"/>
+  <!-- Fenster -->
+  <rect x="120" y="280" width="220" height="500" stroke="#3a2818" stroke-width="3" fill="#0a0807"/>
+  <line x1="230" y1="280" x2="230" y2="780" stroke="#3a2818" stroke-width="2"/>
+  <line x1="120" y1="530" x2="340" y2="530" stroke="#3a2818" stroke-width="2"/>
+  <!-- Sessel-Silhouette -->
+  <path d="M620,820 Q620,720 680,720 L760,720 Q760,820 720,820 Z" fill="#0a0807"/>
+  <rect x="640" y="820" width="100" height="80" fill="#0a0807"/>
+</svg>
